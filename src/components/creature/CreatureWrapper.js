@@ -210,6 +210,7 @@ class CreatureWrapper extends Component {
                   <div>
                     <CreatureStats
                       creature={creature.apiData}
+                      active={active}
                     />
                   </div>
                   )}

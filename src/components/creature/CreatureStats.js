@@ -68,8 +68,9 @@ const renderHighlighter = (text) => {
 
 export default function CreatureStats({
   creature,
+  active,
 }) {
-  const [showCreatureStats, setCreatureStats] = useState(false);
+  const [showCreatureStats, setCreatureStats] = useState(active);
 
   const savingThrows = creature.proficiencies ? creature.proficiencies.filter((ability) => ability.proficiency?.index.includes('saving-throw')) : [];
   const skills = creature.proficiencies ? creature.proficiencies.filter((ability) => ability.proficiency?.index.includes('skill')) : [];
