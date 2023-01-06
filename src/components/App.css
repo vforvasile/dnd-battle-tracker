@@ -1289,5 +1289,14 @@ input[type="number"] {
   background-color: #f48f42;
 }
 
+.creature-scroll-effect {
+  scroll-margin-top: 120px;
+}
+
+.clickable-initiative {
+  cursor: pointer;
+}
+
+
 
 /* creature stats */

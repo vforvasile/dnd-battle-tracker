@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useRef, useState } from 'react';
 import isHotkey from 'is-hotkey';
 import Timer from './Timer';
@@ -89,6 +91,7 @@ function BattleToolbar({
   toggleShare,
   rulesSearchOpen,
   toggleRulesSearch,
+  onScrollActiveInitiative,
 }) {
   const [optionsExpanded, setOptionsExpanded] = useState(false);
   const nextButton = useRef(null);
@@ -148,7 +151,9 @@ function BattleToolbar({
       )}
       <div className="battle-toolbar--stat">
         Initiative:
-        <div className="battle-toolbar--stat-value">{initiative}</div>
+        <div onClick={onScrollActiveInitiative} className="battle-toolbar--stat-value clickable-initiative">
+          {initiative}
+        </div>
       </div>
       <div className="battle-toolbar--stat battle-toolbar--stat__extra2">
         Creatures:
