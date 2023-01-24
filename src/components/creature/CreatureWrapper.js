@@ -234,7 +234,8 @@ class CreatureWrapper extends Component {
           )}
         </section>
         { !playerSession && !this.newCreatureToolbar && (
-          <section
+          <div
+            role="toolbar"
             aria-label={`${name} toolbar`}
             id="creature-toolbar"
             data-creature-id={id}
@@ -246,7 +247,7 @@ class CreatureWrapper extends Component {
               creatureManagement={creatureManagement}
               focused={focused && toolbarFocused && !toolbarAlreadyFocused}
             />
-          </section>
+          </div>
         )}
         { !playerSession && this.newCreatureToolbar && (
           <NewCreatureToolbar creature={creature} />

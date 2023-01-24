@@ -54,7 +54,8 @@ import { hotkeys } from '../../hotkeys/hotkeys';
 function DungeonMasterApp({
   state, setState, shareBattle, onlineError,
 }) {
-  const creaturesRef = useRef();
+  const creaturesRef = useRef(null);
+
   const updateBattle = (update, doShare = true) => (...args) => {
     setState((prevState) => {
       const newState = update(prevState, ...args);
@@ -97,6 +98,7 @@ function DungeonMasterApp({
     rulesSearchOpened,
     ariaAnnouncements,
     battleId,
+    focusedCreature,
   } = state;
 
   useEffect(() => {
@@ -175,7 +177,7 @@ function DungeonMasterApp({
             ref={creaturesRef}
             creatures={creatures}
             activeCreatureId={activeCreatureId}
-            focusedCreature={state.focusedCreature}
+            focusedCreature={focusedCreature}
             setFocus={updateBattle(setFocus, false)}
             round={round}
             secondsElapsed={secondsElapsed}

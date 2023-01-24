@@ -228,6 +228,7 @@ input[type="number"] {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
+  margin-top: 2px;
 }
 
 .battle-toolbar--button {
@@ -528,18 +529,31 @@ input[type="number"] {
   display: grid;
   grid-template-columns: repeat(auto-fit, 18px);
   grid-auto-rows: 1fr;
-  margin-left: 10px;
+  padding: 10px;
+}
+
+.new-creature-toolbar__focused {
+  padding: 8px;
+  border: 2px solid #822000;
+  border-radius: 15px;
+  box-shadow: 0 0 5px #979aa4;
 }
 
 .new-creature-toolbar-button {
   grid-column: span 2;
 }
 
-.new-creature-toolbar-button:hover,
 .new-creature-toolbar-button:focus {
   background-color: #EBE1AD;
-  border: 2px solid #822000;
-  outline: none;
+  border: 1px solid #822000;
+  outline: 2px solid #822000;
+  outline-offset: 2px;
+  box-shadow: 0 0 5px #979aa4;
+}
+
+.new-creature-toolbar-button:hover {
+  background-color: #EBE1AD;
+  border: 1px solid #822000;
   box-shadow: 0 0 5px #979aa4;
 }
 
@@ -1300,3 +1314,32 @@ input[type="number"] {
 
 
 /* creature stats */
+/* scroll to active initiative */
+.creature-scroll-effect {
+  scroll-margin-top: 54px;
+}
+
+.battle-toolbar--stat-value__button {
+  border: none;
+  box-shadow: none;
+  background: none;
+  min-height: auto;
+  font-size: 18px;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  padding: 2px;
+  margin: 0;
+  display: block;
+  border-radius: 5px;
+}
+
+.battle-toolbar--stat-value__button-disabled {
+  cursor: auto;
+}
+
+.battle-toolbar--stat-value__button-enabled:focus,
+.battle-toolbar--stat-value__button-enabled:hover {
+  background-color: #EBE1AD;
+  box-shadow: 0 0 5px #979aa4;
+  outline: 2px solid #822000;
+}
+/* scroll to active initiative */

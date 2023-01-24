@@ -24,8 +24,9 @@ function Creatures({
     forwardedRef,
     () => ({
       scrollToCreature: (value) => {
-        refs[value]?.current?.scrollIntoView({
+        refs[value].current.scrollIntoView({
           behavior: 'smooth',
+          block: 'center',
         });
       },
     }),
