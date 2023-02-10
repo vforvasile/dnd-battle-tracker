@@ -18,6 +18,12 @@ export const beautifySnakeWord = (word) => {
   return word.split('_').map((line) => capitalizeWord(line)).join(' ');
 };
 
+export const getArmorClass = (data) => {
+  const [firstArmor] = data;
+  if (!firstArmor?.value) return 0;
+  return firstArmor.value;
+};
+
 export const DamageTypesObject = {
   acid: '🧪',
   bludgeoning: '🔨',

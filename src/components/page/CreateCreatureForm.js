@@ -9,7 +9,7 @@ import Input from './Input';
 import D20Icon from '../icons/D20Icon';
 import rollDice from '../../util/rollDice';
 import DropdownOption from '../creature/toolbar/DropdownOption';
-import { calculateAbilityModifier } from '../../util/characterSheet';
+import { calculateAbilityModifier, getArmorClass } from '../../util/characterSheet';
 
 const BASE_API_URL = 'https://www.dnd5eapi.co';
 
@@ -136,7 +136,7 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
           initiative: state.initiative.length > 0 ? state.initiative : calculatedInitiative,
           name: monster.name,
           healthPoints: data.hit_points,
-          armorClass: data.armor_class,
+          armorClass: getArmorClass(data.armor_class),
           apiData: data,
         }));
       })

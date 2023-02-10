@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Highlighter from 'react-highlight-words';
 
 import {
-  beautifySnakeWord, capitalizeWord, DamageTypesObject, getAbilityWithSign, getModifierSign, getProficiencyBonus,
+  beautifySnakeWord, capitalizeWord, DamageTypesObject, getAbilityWithSign, getArmorClass, getModifierSign, getProficiencyBonus,
 } from '../../util/characterSheet';
 import ExternalLink from '../page/ExternalLink';
 
@@ -112,10 +112,12 @@ export default function CreatureStats({
           <polyline points="0,0 400,2.5 0,5" />
         </svg>
         <div className="top-stats">
+          {creature.armor_class && (
           <div className="property-line first">
             <h4>Armor Class - </h4>
-            <p>{creature.armor_class}</p>
+            <p>{getArmorClass(creature.armor_class)}</p>
           </div>
+          )}
           <div className="property-line">
             <h4>Hit Points - </h4>
             <p>
