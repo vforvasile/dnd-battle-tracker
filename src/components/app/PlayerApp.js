@@ -42,10 +42,7 @@ function PlayerApp({
 
   const battleData = getBattleData(getLoading, getData, syncLoading, syncData);
 
-  const creaturesRef = useRef(null);
-
-  const prevActiveCreature = useRef(null);
-
+  const creaturesRef = useRef();
 
   useEffect(() => {
     if (onlineError || getError || syncError) {
@@ -78,13 +75,6 @@ function PlayerApp({
   const onScrollActiveInitiative = () => {
     creaturesRef?.current?.scrollToCreature(activeCreatureId);
   };
-
-  useEffect(() => {
-    if (typeof prevActiveCreature.current === 'number' && prevActiveCreature.current !== activeCreatureId) {
-      onScrollActiveInitiative(activeCreatureId);
-    }
-    prevActiveCreature.current = activeCreatureId;
-  }, [activeCreatureId, onScrollActiveInitiative]);
 
   return (
     <>

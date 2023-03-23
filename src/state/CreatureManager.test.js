@@ -9,7 +9,6 @@ import {
   removeNoteFromCreature,
   addHitPointsToCreature,
   addTemporaryHealthToCreature,
-  validateCreature,
   addInitiativeToCreature,
   toggleCreatureLock,
   toggleCreatureShare,
@@ -20,8 +19,10 @@ import {
 } from './CreatureManager';
 import { addCondition, removeCondition } from './ConditionsManager';
 import defaultState from '../../test/fixtures/battle';
+import { monsterUrlFrom5eApiIndex } from '../client/dndBeyond';
 
 jest.mock('./ConditionsManager');
+jest.mock('../client/dndBeyond');
 
 const unconsciousCondition = [{ text: 'Unconscious' }];
 
@@ -29,6 +30,7 @@ beforeEach(() => {
   jest.resetAllMocks();
   addCondition.mockReturnValue(unconsciousCondition);
   removeCondition.mockReturnValue([]);
+  monsterUrlFrom5eApiIndex.mockReturnValue('https://www.dndbeyond.com/monsters/goblin');
 });
 
 describe('killCreature', () => {
@@ -560,6 +562,7 @@ describe('createCreature', () => {
       locked: false,
       shared: true,
       hitPointsShared: true,
+      statBlock: null,
     };
 
     const creature = createCreature(1, { name: 'name', initiative: 13, healthPoints: 10 });
@@ -580,6 +583,7 @@ describe('createCreature', () => {
       locked: false,
       shared: true,
       hitPointsShared: true,
+      statBlock: null,
     };
 
     const creature = createCreature(1, {
@@ -587,69 +591,29 @@ describe('createCreature', () => {
     });
     expect(creature).toEqual(expectedCreature);
   });
-});
 
-describe('validateCreature', () => {
-  test('returns undefined if creature is valid', () => {
-    expect(validateCreature('a', '1', 1, 1)).toEqual(undefined);
-  });
-
-  test('initiative is optional', () => {
-    expect(validateCreature('a', undefined, 1, 1)).toEqual(undefined);
-  });
-
-  test('health is optional', () => {
-    expect(validateCreature('a', '1', undefined, 1)).toEqual(undefined);
-  });
-
-  test('name must be non-empty', () => {
-    const expectedErrors = {
-      nameError: 'Name must be provided.',
-      initiativeError: false,
-      healthError: false,
-      multiplierError: false,
+  test("it adds a statBlock URL if the creature's stats include its index", () => {
+    const stats = { index: 'goblin' };
+    const creature = {
+      name: 'name',
+      initiative: 13,
+      healthPoints: 10,
+      stats,
     };
-    expect(validateCreature('', '1', 1, 1)).toEqual(expectedErrors);
+    const createdCreature = createCreature(1, creature);
+    expect(createdCreature.statBlock).toEqual('https://www.dndbeyond.com/monsters/goblin');
   });
 
-  test('initiative must be a number if non-empty', () => {
-    const expectedErrors = {
-      nameError: false,
-      initiativeError: 'Initiative must be a number.',
-      healthError: false,
-      multiplierError: false,
+  test('it maps the dnd5eapi index to a valid D&D Beyond URL', () => {
+    const stats = { index: 'goblin' };
+    const creature = {
+      name: 'name',
+      initiative: 13,
+      healthPoints: 10,
+      stats,
     };
-    expect(validateCreature('a', NaN, 1, 1)).toEqual(expectedErrors);
-  });
-
-  test('health must be greater than 0', () => {
-    const expectedErrors = {
-      nameError: false,
-      initiativeError: false,
-      healthError: 'Health must be greater than 0.',
-      multiplierError: false,
-    };
-    expect(validateCreature('a', 1, 0, 1)).toEqual(expectedErrors);
-  });
-
-  test('multiplier must be greater than 0', () => {
-    const expectedErrors = {
-      nameError: false,
-      initiativeError: false,
-      healthError: false,
-      multiplierError: 'Multiplier must be greater than 0 and less than 50.',
-    };
-    expect(validateCreature('a', 1, 1, 0)).toEqual(expectedErrors);
-  });
-
-  test('multiplier must be less than 51', () => {
-    const expectedErrors = {
-      nameError: false,
-      initiativeError: false,
-      healthError: false,
-      multiplierError: 'Multiplier must be greater than 0 and less than 50.',
-    };
-    expect(validateCreature('a', 1, 1, 51)).toEqual(expectedErrors);
+    createCreature(1, creature);
+    expect(monsterUrlFrom5eApiIndex).toHaveBeenCalledWith('goblin');
   });
 });
 
@@ -1309,6 +1273,36 @@ describe('addInitiativeToCreature', () => {
         {
           ...defaultState.creatures[1],
           initiative: undefined,
+        },
+        defaultState.creatures[2],
+      ],
+    };
+
+    const expectedState = {
+      ...defaultState,
+      creatures: [
+        defaultState.creatures[0],
+        {
+          ...defaultState.creatures[1],
+          initiative: 10,
+        },
+        defaultState.creatures[2],
+      ],
+      ariaAnnouncements: ['Goblin #1\'s initiative is 10'],
+    };
+
+    const result = addInitiativeToCreature(state, 1, 10);
+    expect(result).toEqual(expectedState);
+  });
+
+  it("adds initiative to a creature who's initiative is currently null", () => {
+    const state = {
+      ...defaultState,
+      creatures: [
+        defaultState.creatures[0],
+        {
+          ...defaultState.creatures[1],
+          initiative: null,
         },
         defaultState.creatures[2],
       ],

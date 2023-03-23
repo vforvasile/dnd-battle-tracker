@@ -47,6 +47,7 @@ import {
   dismissErrors,
   updateErrors,
 } from '../../state/AppManager';
+import { handleCreateCreatureErrors } from '../../state/CreatureFormManager';
 import Footer from '../page/footer/Footer';
 import Errors from '../error/Errors';
 import { hotkeys } from '../../hotkeys/hotkeys';
@@ -55,8 +56,6 @@ function DungeonMasterApp({
   state, setState, shareBattle, onlineError,
 }) {
   const creaturesRef = useRef(null);
-
-  const prevActiveCreature = useRef(null);
 
   const updateBattle = (update, doShare = true) => (...args) => {
     setState((prevState) => {
@@ -133,15 +132,8 @@ function DungeonMasterApp({
   };
 
   const onScrollActiveInitiative = () => {
-    creaturesRef?.current?.scrollToCreature(activeCreatureId);
+    creaturesRef.current.scrollToCreature(activeCreatureId);
   };
-
-  useEffect(() => {
-    if (typeof prevActiveCreature.current === 'number' && prevActiveCreature.current !== activeCreatureId) {
-      onScrollActiveInitiative(activeCreatureId);
-    }
-    prevActiveCreature.current = activeCreatureId;
-  }, [activeCreatureId, onScrollActiveInitiative]);
 
   return (
     <>
@@ -180,6 +172,7 @@ function DungeonMasterApp({
           />
           <CreateCreatureForm
             createCreature={updateBattle(addCreature)}
+            handleCreateCreatureErrors={updateBattle(handleCreateCreatureErrors)}
             createCreatureErrors={state.createCreatureErrors}
           />
           <Creatures

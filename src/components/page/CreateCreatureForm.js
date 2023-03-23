@@ -5,15 +5,20 @@ import Switch from 'react-switch';
 import { hotkeys } from '../../hotkeys/hotkeys';
 import CrossIcon from '../icons/CrossIcon';
 import MonsterSearcher from '../buttons/MonsterSearcher';
-import Input from './Input';
-import D20Icon from '../icons/D20Icon';
-import rollDice from '../../util/rollDice';
-import DropdownOption from '../creature/toolbar/DropdownOption';
-import { calculateAbilityModifier, getArmorClass } from '../../util/characterSheet';
+import Input from '../form/Input';
+import RollableInput from '../form/RollableInput';
+import RollGroupIcon from '../icons/RollGroupIcon';
+import RollEachIcon from '../icons/RollEachIcon';
+import ComboboxList from '../form/ComboboxList';
+import { calculateAbilityModifier } from '../../domain/characterSheet';
+import { getMonsters, getMonster } from '../../client/dnd5eapi';
+import { validateCreature } from '../../state/CreatureFormManager';
 
-const BASE_API_URL = 'https://www.dnd5eapi.co';
-
-function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateCreature }) {
+function CreateCreatureForm({
+  createCreatureErrors,
+  createCreature: propsCreateCreature,
+  handleCreateCreatureErrors,
+}) {
   const initialState = {
     name: '',
     initiative: '',
@@ -21,17 +26,16 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
     armorClass: '',
     multiplier: 1,
     submitted: false,
-    apiData: undefined,
+    rollEachInitiative: false,
+    dexterityModifier: 0,
+    stats: null,
   };
   const [state, setState] = useState(initialState);
 
   const [monsterData, setMonsterData] = useState([]);
 
-  const [dropdownVisible, setDropdownVisible] = useState(true);
-
-  const [hasSameInitiative, setSameInitiative] = useState(true);
-
   const nameInput = useRef(null);
+  const initiativeInput = useRef(null);
 
   const hotKeyHandler = (e) => {
     if (isHotkey(hotkeys.createCreature, e)) {
@@ -39,9 +43,15 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
     }
   };
 
-  const toggleInitiative = () => {
-    setSameInitiative((prevValue) => !prevValue);
-  };
+  useEffect(() => {
+    getMonsters().then(setMonsterData);
+  }, []);
+
+  useEffect(() => {
+    nameInput.current.focus();
+    window.addEventListener('keydown', hotKeyHandler);
+    return () => window.removeEventListener('keydown', hotKeyHandler);
+  }, []);
 
   const resetForm = () => {
     setState(initialState);
@@ -87,6 +97,17 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
     });
   };
 
+  const setName = (newName) => {
+    setState((prevState) => ({ ...prevState, name: newName }));
+  };
+
+  const rollInitiative = () => {
+    const { roll } = initiativeInput.current;
+    if (state.rollEachInitiative) return () => roll().result;
+    const initiative = roll().result;
+    return () => initiative;
+  };
+
   const createCreature = () => {
     const healthPoints = state.healthPoints === ''
       ? undefined
@@ -98,23 +119,31 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
 
     const multiplier = parseInt(state.multiplier, 10);
 
-    const initiative = state.initiative === ''
-      ? undefined
-      : parseInt(state.initiative, 10);
+    const errors = validateCreature(state.name, state.initiative, healthPoints, multiplier);
 
-    const creature = {
-      ...state, healthPoints, initiative, multiplier, armorClass, syncMultipleInitiatives: hasSameInitiative,
-    };
+    if (!errors) {
+      const creature = {
+        name: state.name,
+        healthPoints,
+        initiative: rollInitiative(),
+        multiplier,
+        stats: state.stats,
+      };
 
-    propsCreateCreature(creature);
+      propsCreateCreature(creature);
+    } else {
+      handleCreateCreatureErrors(errors);
+    }
+
     setState((prevState) => ({ ...prevState, submitted: true }));
   };
 
-  const onPressDice = () => {
-    setState((prevState) => ({
-      ...prevState,
-      initiative: `${rollDice(20)}`,
-    }));
+  const toggleRollEachInitiative = () => {
+    setState((prevState) => {
+      const { rollEachInitiative } = state;
+      const newState = { ...prevState, rollEachInitiative: !rollEachInitiative };
+      return newState;
+    });
   };
 
   const formHandler = (event) => {
@@ -123,100 +152,90 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
     }
   };
 
-  const onSelectMonster = (monster) => {
-    if (!monster) return;
-    fetch(`${BASE_API_URL}${monster.url}`, { 'Content-Type': 'application/json' })
-      .then((response) => response.json())
-      .then((data) => {
-        const dexterityModifier = data.dexterity ? calculateAbilityModifier(data.dexterity) : 0;
-        const rolledNumber = rollDice(20);
-        const calculatedInitiative = `${rolledNumber + dexterityModifier}`;
-        setState((prevState) => ({
-          ...prevState,
-          initiative: state.initiative.length > 0 ? state.initiative : calculatedInitiative,
-          name: monster.name,
-          healthPoints: data.hit_points,
-          armorClass: getArmorClass(data.armor_class),
-          apiData: data,
-        }));
-      })
-      .finally(() => {
-        setDropdownVisible(false);
-      });
+  const getInitiative = (dexterity, dexterityModifier) => {
+    if (dexterity === undefined) return '';
+
+    const d20 = 'd20';
+    if (dexterityModifier === 0) return d20;
+    const sign = dexterityModifier > 0 ? '+' : '';
+    return `${d20}${sign}${dexterityModifier}`;
+  };
+
+  const onSelectMonster = async (monster) => {
+    const data = await getMonster(monster);
+    const { hit_points: healthPoints, dexterity } = data;
+    const dexterityModifier = calculateAbilityModifier(dexterity);
+    setState((prevState) => ({
+      ...prevState,
+      name: monster.name,
+      healthPoints: healthPoints || '',
+      initiative: getInitiative(dexterity, dexterityModifier),
+      dexterityModifier,
+      stats: data,
+    }));
   };
 
   const {
-    name, initiative, healthPoints, multiplier, armorClass,
+    name, initiative, healthPoints, multiplier, rollEachInitiative,
   } = state;
 
   const {
     nameError, initiativeError, healthError, multiplierError,
   } = createCreatureErrors;
 
-  const renderToggle = state.multiplier > 1;
+  const filteredMonsters = () => {
+    if (name.length < 2) return [];
+    return monsterData
+      .filter((monster) => monster.name.toLowerCase().includes(name.toLowerCase()))
+      .map((monster) => ({
+        ...monster,
+        text: monster.name,
+        id: monster.index,
+      }));
+  };
 
-  const toggleTitle = hasSameInitiative ? 'Same' : 'Random';
-
-  const filteredMonsters = monsterData.filter((monster) => monster.name.toLowerCase().includes(name.toLowerCase()));
+  const nameRightControls = {
+    rightEnabled: true,
+    RightControl: <MonsterSearcher asButton={false} search={name} />,
+  };
 
   return (
     <form className="create-creature-form">
-      <Input
-        customClasses="create-creature-form--item__text"
-        required
-        error={nameError && <span className="form--label__error"> *</span>}
-        inputRef={nameInput}
+      <ComboboxList
         value={name}
-        ariaLabel="create creature form. Name (required)"
+        setValue={setName}
+        list={filteredMonsters()}
+        id="create-creature-form-name"
+        dropdownId="create-creature-form-name-dropdown"
+        dropdownLabel="Select creature"
         label="Creature Name"
-        name="name"
-        handleChange={handleChange}
-        rightControls={{
-          rightEnabled: true,
-          RightControl: <MonsterSearcher asButton={false} search={name} />,
-        }}
-        formHandler={formHandler}
-        inputId="create-creature-form-name"
+        listAriaLabel="Creature search results"
+        inputAriaLabel="create creature form. Name (required)"
+        inputAriaLabelItemSelected="create creature form. Name (required)"
+        rightControls={nameRightControls}
+        rightControlsItemSelected={nameRightControls}
+        handleSubmit={createCreature}
+        onItemSubmit={onSelectMonster}
+        inputRef={nameInput}
+        error={nameError && <span className="form--label__error"> *</span>}
+        customClassName="create-creature-form--item__text"
       />
-
-      {name.length > 1 && filteredMonsters.length > 0 && dropdownVisible && (
-      <ul
-        style={{
-          height: '80px',
-          overflowY: 'scroll',
-        }}
-        className="creature-toolbar--notes-dropdown"
-        role="listbox"
-      >
-        {filteredMonsters.map((item) => (
-          <div className="creature-toolbar--notes-dropdown-group" key={item.index}>
-            <DropdownOption
-              className="creature-toolbar--notes-dropdown-item"
-              onClick={() => onSelectMonster(item)}
-              selected={false}
-              text={item.name}
-            />
-          </div>
-        ))}
-      </ul>
-      )}
-
-      <Input
-        customClasses="create-creature-form--item__number create-creature-form--item__tall"
-        error={initiativeError}
-        integer
+      <RollableInput
         value={initiative}
+        customClasses="create-creature-form--item__number create-creature-form--item__tall"
+        error={initiativeError && <span className="form--label__error"> number, dice</span>}
         ariaLabel="create creature form. Initiative (optional)"
-        label="Initiative (optional)"
+        label={initiativeError ? 'Initiative' : 'Initiative (optional)'}
         name="initiative"
         handleChange={handleChange}
-        submitHandler={onPressDice}
+        submitHandler={toggleRollEachInitiative}
         rightControls={{
-          rightTitle: 'Roll Initiative',
-          RightSubmitIcon: <D20Icon />,
+          rightTitle: rollEachInitiative ? 'Roll as group' : 'Roll per creature',
+          RightSubmitIcon: rollEachInitiative ? <RollEachIcon /> : <RollGroupIcon />,
         }}
         formHandler={formHandler}
         inputId="create-creature-form-initiative"
+        ref={initiativeInput}
       />
       <Input
         customClasses="create-creature-form--item__number"
