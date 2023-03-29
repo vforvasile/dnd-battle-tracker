@@ -142,6 +142,7 @@ class CreatureWrapper extends Component {
     const classes = `creature-wrapper ${activeClassModifier}`;
     const creatureAriaLabel = getCreatureAriaLabel(creature, active, expanded);
     const {
+      resetSpells,
       updateCreatureSpells,
       removeCreature,
       removeNoteFromCreature,
@@ -215,6 +216,7 @@ class CreatureWrapper extends Component {
                       creature={creature}
                       active={active}
                       updateCreatureSpells={updateCreatureSpells}
+                      resetSpells={resetSpells}
                     />
                   )}
 

@@ -44,6 +44,22 @@ export function updateCreatureSpells(state, creatureId, currentSpell) {
   return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
 }
 
+export function resetSpells(state, creatureId) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells changed for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = spellData.spells.map((spell) => {
+    const slots = spell.slots.map((slot) => ({ ...slot, used: false }));
+    return { ...spell, slots };
+  });
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
 export function stabalizeCreature(state, creatureId) {
   const creature = findCreature(state.creatures, creatureId);
   const ariaAnnouncement = `${creature.name} stabalized`;

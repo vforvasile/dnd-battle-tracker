@@ -40,6 +40,7 @@ import {
   toggleCreatureShare,
   toggleCreatureHitPointsShare,
   updateCreatureSpells,
+  resetSpells,
 } from '../../state/CreatureManager';
 import {
   save,
@@ -132,6 +133,7 @@ function DungeonMasterApp({
     toggleCreatureShare: updateBattle(toggleCreatureShare),
     toggleCreatureHitPointsShare: updateBattle(toggleCreatureHitPointsShare),
     updateCreatureSpells: updateBattle(updateCreatureSpells),
+    resetSpells: updateBattle(resetSpells),
   };
 
   const onScrollActiveInitiative = () => {
