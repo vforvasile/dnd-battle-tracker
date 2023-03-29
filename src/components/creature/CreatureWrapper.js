@@ -9,6 +9,7 @@ import CreatureRemover from '../buttons/CreatureRemover';
 import { getAvailableConditions } from '../../state/ConditionsManager';
 import { getHitPointsBar, shouldShowHitPoints } from '../../display/displayLogic';
 import CreatureStats from './CreatureStats';
+import SpellCasting from './SpellCasting';
 
 function getCreatureAriaLabel(creature, active, expanded) {
   const { name } = creature;
@@ -38,7 +39,7 @@ class CreatureWrapper extends Component {
     super(props);
 
     this.state = {
-      expanded: false,
+      expanded: true,
     };
 
     this.expandCreatureHandler = this.expandCreatureHandler.bind(this);
@@ -170,6 +171,8 @@ class CreatureWrapper extends Component {
       rightPercentage,
     ] = getHitPointsBar(creatureHealthPoints, maxHealthPoints, alive, showHitPoints);
 
+    console.log('current state', creature);
+
     return (
       <>
         <section
@@ -206,6 +209,13 @@ class CreatureWrapper extends Component {
                     showHealth={showHitPoints}
                     playerSession={playerSession}
                   />
+                  {creature.spellData && (
+                    <SpellCasting
+                      spellData={creature.spellData}
+                      active={active}
+                    />
+                  )}
+
                   {creature.apiData && (
                   <div>
                     <CreatureStats
