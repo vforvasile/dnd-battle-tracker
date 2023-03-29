@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { capitalizeWord } from '../../util/characterSheet';
+import Checkbox from '../buttons/CheckBox';
 
 const slotsExpired = (slots) => slots.every((slot) => slot.used);
 
@@ -19,27 +21,51 @@ export default function SpellCasting({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <p>{spellData.school}</p>
-      <p>{spellData.dc}</p>
-      <p>{spellData.modifier}</p>
-      <p>{spellData.ability}</p>
+      <div className="spell-info">
+        <span className="spell-label">
+          <b>School:</b>
+          {' '}
+          { capitalizeWord(spellData.school)}
+        </span>
+        <span className="spell-label">
+          <b>Level:</b>
+          {' '}
+          {spellData.level}
+        </span>
+        <span className="spell-label">
+          <b>Save DC:</b>
+          {' '}
+          {spellData.saveDC}
+        </span>
+        <span className="spell-label">
+          <b>Spell MOD:</b>
+          {' '}
+          {spellData.modifier}
+        </span>
+        <span className="spell-label">
+          <b>Spell Class:</b>
+          {' '}
+          {spellData.ability}
+        </span>
+      </div>
       {spellData.spells.map((item) => {
         const isDisabled = slotsExpired(item.slots) && item.level !== '0';
         return (
-          <div style={{ display: 'flex', flexDirection: 'column' }} key={item.level}>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <p className={isDisabled ? 'used-spells' : ''}>
-                Level
-                {' '}
-                {item.level}
-              </p>
-              {item.slots.map((slot) => (
-                <div key={slot.slotIndex}>
-                  <input onChange={(ev) => onChangeSlot(ev, item.level, slot.slotIndex)} checked={slot.used} type="checkbox" />
-                </div>
-              ))}
-            </div>
-
+          <div key={item.level} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <span
+              className={`spell-level ${isDisabled ? 'used-spells' : ''}`}
+            >
+              Level
+              {' '}
+              {item.level}
+            </span>
+            {item.slots.map((slot) => (
+              <Checkbox
+                key={slot.slotIndex}
+                checked={slot.used}
+                onChange={(ev) => onChangeSlot(ev, item.level, slot.slotIndex)}
+              />
+            ))}
           </div>
         );
       })}
