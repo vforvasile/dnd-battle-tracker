@@ -112,7 +112,7 @@ export function getRawName(name) {
 }
 
 export function createCreature(creatureId, {
-  armorClass, name, number, initiative, healthPoints,apiData,
+  armorClass, name, number, initiative, healthPoints, apiData, spellData,
 }) {
   const groupedName = number ? `${name} #${number}` : name;
   return {
@@ -129,7 +129,8 @@ export function createCreature(creatureId, {
     locked: false,
     shared: true,
     hitPointsShared: true,
-    apiData
+    apiData,
+    spellData,
   };
 }
 
