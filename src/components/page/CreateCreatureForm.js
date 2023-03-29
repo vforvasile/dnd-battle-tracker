@@ -10,7 +10,7 @@ import D20Icon from '../icons/D20Icon';
 import rollDice from '../../util/rollDice';
 import DropdownOption from '../creature/toolbar/DropdownOption';
 import { calculateAbilityModifier, getArmorClass } from '../../util/characterSheet';
-import getCreatureSpellData from '../../util/spells';
+import { getCreatureSpellData } from '../../util/spells';
 
 const BASE_API_URL = 'https://www.dnd5eapi.co';
 

@@ -1,4 +1,5 @@
 import getSecondsElapsed from './TimeManager';
+import { findAndChangeSpellSlot } from '../util/spells';
 import { allConditions, addCondition, removeCondition } from './ConditionsManager';
 
 function findCreature(creatures, creatureId) {
@@ -28,6 +29,19 @@ export function killCreature(state, creatureId) {
     { alive: false, healthPoints, conditions: newConditions },
     ariaAnnouncement,
   );
+}
+
+export function updateCreatureSpells(state, creatureId, currentSpell) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells changed for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = findAndChangeSpellSlot(spellData.spells, currentSpell);
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
 }
 
 export function stabalizeCreature(state, creatureId) {

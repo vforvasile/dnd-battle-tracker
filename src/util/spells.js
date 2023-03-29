@@ -1,4 +1,5 @@
-const getCreatureSpellData = (abilities) => {
+/* eslint-disable max-len */
+export const getCreatureSpellData = (abilities) => {
   if (!abilities) return undefined;
   const data = abilities.find((ability) => ability.name === 'Spellcasting');
   if (!data || !data?.spellcasting) return undefined;
@@ -27,7 +28,6 @@ const getCreatureSpellData = (abilities) => {
     };
   });
 
-  console.log('newSpells: ', newSpells);
 
   const spellData = {
     saveDC: spellcasting.dc,
@@ -41,4 +41,22 @@ const getCreatureSpellData = (abilities) => {
   return spellData;
 };
 
-export default getCreatureSpellData;
+export const changeSpellSlot = (slots, { slotIndex, value }) => slots.map((currentSlot) => {
+  if (currentSlot.slotIndex === slotIndex) {
+    return {
+      ...currentSlot,
+      used: value,
+    };
+  }
+  return currentSlot;
+});
+
+export const findAndChangeSpellSlot = (spells, { level, slotIndex, value }) => spells.map((currentLevel) => {
+  if (currentLevel.level === level) {
+    return {
+      ...currentLevel,
+      slots: changeSpellSlot(currentLevel.slots, { slotIndex, value }),
+    };
+  }
+  return currentLevel;
+});

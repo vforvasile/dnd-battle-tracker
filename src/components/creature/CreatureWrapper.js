@@ -142,6 +142,7 @@ class CreatureWrapper extends Component {
     const classes = `creature-wrapper ${activeClassModifier}`;
     const creatureAriaLabel = getCreatureAriaLabel(creature, active, expanded);
     const {
+      updateCreatureSpells,
       removeCreature,
       removeNoteFromCreature,
       toggleCreatureLock,
@@ -171,7 +172,7 @@ class CreatureWrapper extends Component {
       rightPercentage,
     ] = getHitPointsBar(creatureHealthPoints, maxHealthPoints, alive, showHitPoints);
 
-    console.log('current state', creature);
+    console.log('current creature state', creature);
 
     return (
       <>
@@ -211,8 +212,9 @@ class CreatureWrapper extends Component {
                   />
                   {creature.spellData && (
                     <SpellCasting
-                      spellData={creature.spellData}
+                      creature={creature}
                       active={active}
+                      updateCreatureSpells={updateCreatureSpells}
                     />
                   )}
 
