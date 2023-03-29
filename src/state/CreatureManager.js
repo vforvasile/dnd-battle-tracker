@@ -60,6 +60,44 @@ export function resetSpells(state, creatureId) {
   return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
 }
 
+export function addSpellSlot(state, creatureId, spellLevel) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells slot added for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = spellData.spells.map((spell) => {
+    if (spell.level === spellLevel) {
+      const { slots } = spell;
+      return { ...spell, slots: [...slots, { used: false, slotIndex: slots.length + 1 }] };
+    }
+    return spell;
+  });
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
+export function removeSpellSlot(state, creatureId, spellLevel) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells slot removed for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = spellData.spells.map((spell) => {
+    if (spell.level === spellLevel) {
+      const { slots } = spell;
+      return { ...spell, slots: slots.filter((_, index) => slots.length - index !== 1) };
+    }
+    return spell;
+  });
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
 export function stabalizeCreature(state, creatureId) {
   const creature = findCreature(state.creatures, creatureId);
   const ariaAnnouncement = `${creature.name} stabalized`;

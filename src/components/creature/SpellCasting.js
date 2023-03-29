@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState } from 'react';
 import { capitalizeWord } from '../../util/characterSheet';
 import Checkbox from '../buttons/CheckBox';
 
@@ -12,14 +12,41 @@ export default function SpellCasting({
   active,
   updateCreatureSpells,
   resetSpells,
+  addSpellSlot,
+  removeSpellSlot,
 }) {
   const { spellData } = creature;
+
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoverLevel, setLevel] = useState('');
+
+  const handleMouseOver = (level) => {
+    setLevel(level);
+    setIsHovering(true);
+  };
+
+  const onClickRandom = () => {
+    setIsHovering(false);
+    setLevel('');
+  };
+
   if (!spellData) return null;
+
   console.log('SpellCasting data', spellData);
 
   const onChangeSlot = (event, level, slotIndex) => {
     const { checked } = event.target;
     updateCreatureSpells(creature.id, { level, slotIndex, value: checked });
+  };
+
+  const onAddSpellSlot = (level) => {
+    addSpellSlot(creature.id, level);
+    handleMouseOver(level);
+  };
+
+  const onRemoveSpellSlot = (level) => {
+    removeSpellSlot(creature.id, level);
+    handleMouseOver(level);
   };
 
   const onResetSpells = () => {
@@ -62,7 +89,7 @@ export default function SpellCasting({
         if (item.level === '0') return null;
         const isDisabled = slotsExpired(item.slots);
         return (
-          <div key={item.level} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <div onFocus={() => {}} onMouseOver={() => handleMouseOver(item.level)} onClick={onClickRandom} key={item.level} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             <span
               className={`spell-level ${isDisabled ? 'used-spells' : ''}`}
             >
@@ -77,7 +104,17 @@ export default function SpellCasting({
                 onChange={(ev) => onChangeSlot(ev, item.level, slot.slotIndex)}
               />
             ))}
-            
+            {isHovering && item.level === hoverLevel && !isDisabled && (
+            <div className="wrap-spell-buttons">
+              <button onClick={() => onRemoveSpellSlot(item.level)} type="button" className="edit-spell">
+                -
+              </button>
+              <button onClick={() => onAddSpellSlot(item.level)} type="button" className="edit-spell">
+                +
+              </button>
+            </div>
+            )}
+
           </div>
         );
       })}

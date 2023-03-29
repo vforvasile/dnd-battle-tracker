@@ -1382,6 +1382,33 @@ input[type="number"] {
     font-weight: bold;
     cursor: pointer;
   }
+
+  .wrap-spell-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  .edit-spell {
+    cursor: pointer;
+    border: 1.5px solid #979AA4;
+    font-weight: bold;
+    background-color: #EBE1AD;
+    border-radius: 15px;
+    box-shadow: 0 0 3px #979AA4;
+    padding: 0px;
+    height: 30px;
+    min-height: 20px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    color: #979AA4;
+    margin: 2px;
+    font-size: 1.3rem;
+  }
   
 
 /* spell casting */
