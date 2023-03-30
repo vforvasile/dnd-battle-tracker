@@ -13,8 +13,11 @@ export default function SpellCasting({
   updateCreatureSpells,
   addSpellSlot,
   removeSpellSlot,
+  showSpellCreator,
 }) {
   const { spellData } = creature;
+
+  const [showSpells, setShowSpells] = useState(active || showSpellCreator);
 
   const [isHovering, setIsHovering] = useState(false);
   const [hoverLevel, setLevel] = useState('');
@@ -30,6 +33,18 @@ export default function SpellCasting({
   };
 
   if (!spellData) return null;
+
+  const toggleSpells = () => {
+    setShowSpells((prevValue) => !prevValue);
+  };
+
+  if (!showSpells) {
+    return (
+      <div className="creature-title-header">
+        <button id="close-spell-stats" type="button" onClick={toggleSpells}>▼ Show  Spells</button>
+      </div>
+    );
+  }
 
   console.log('SpellCasting data', spellData);
 
@@ -91,7 +106,16 @@ export default function SpellCasting({
         if (item.level === '0') return null;
         const isDisabled = slotsExpired(item.slots);
         return (
-          <div onFocus={() => {}} onMouseOver={() => handleMouseOver(item.level)} onClick={onClickRandom} key={`Item-Level-${item.level}`} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <div
+            onFocus={() => {}}
+            onMouseOver={() => {
+              if (isDisabled) return;
+              handleMouseOver(item.level);
+            }}
+            onClick={onClickRandom}
+            key={`Item-Level-${item.level}`}
+            style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+          >
             <span
               className={`spell-level ${isDisabled ? 'used-spells' : ''}`}
             >
@@ -120,6 +144,10 @@ export default function SpellCasting({
           </div>
         );
       })}
+      <div style={{ alignSelf: 'flex-start' }}>
+        <button id="close-creature-stats" type="button" onClick={toggleSpells}>▲ Hide  spells</button>
+      </div>
+
     </div>
   );
 }

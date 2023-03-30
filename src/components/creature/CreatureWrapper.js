@@ -41,7 +41,7 @@ class CreatureWrapper extends Component {
     super(props);
 
     this.state = {
-      expanded: true,
+      expanded: false,
       showSpellCreator: false,
     };
 
@@ -240,6 +240,7 @@ class CreatureWrapper extends Component {
                       updateCreatureSpells={updateCreatureSpells}
                       addSpellSlot={addSpellSlot}
                       removeSpellSlot={removeSpellSlot}
+                      showSpellCreator={showSpellCreator}
                     />
                   )}
 

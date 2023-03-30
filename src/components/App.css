@@ -1246,19 +1246,18 @@ input[type="number"] {
 }
 #close-creature-stats{
   font-size: 1rem;
-  /* margin-left: 20px; */
   cursor: pointer;
-    border: 0px solid #822000;
-    border: 0px;
-    box-shadow: none;
-    width: auto;
-    border-radius: 0%;
-    height: auto;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: grey
+  border: 0px solid #822000;
+  border: 0px;
+  box-shadow: none;
+  width: auto;
+  border-radius: 0%;
+  height: auto;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey
 }
 .flexRow{
   display: flex;
@@ -1355,13 +1354,21 @@ input[type="number"] {
   line-height: 30px;
 }
 
-/* .spell-info {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  } */
+#close-spell-stats{
+  font-size: 1rem;
+  cursor: pointer;
+  border: 0px solid #822000;
+  border: 0px;
+  box-shadow: none;
+  width: auto;
+  border-radius: 0%;
+  height: auto;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey
+}
 
   .spell-info  {  
     display: grid;
