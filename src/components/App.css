@@ -1365,14 +1365,13 @@ input[type="number"] {
 
   .spell-info  {  
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 5px 5px;
     grid-auto-flow: row;
     grid-template-areas:
-      ". . . . . .";
+      ". . . . . ";
     margin-bottom: 20px;
-  
   }
 
   .reset-spell-button{
@@ -1381,6 +1380,7 @@ input[type="number"] {
     border-radius: 15px;
     font-weight: bold;
     cursor: pointer;
+    margin-left: 30px;
   }
 
   .wrap-spell-buttons{

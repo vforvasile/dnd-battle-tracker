@@ -227,7 +227,8 @@ class CreatureWrapper extends Component {
                   />
                   {showSpellCreator && (
                   <SpellToolbar
-                  createSpellLevel={createSpellLevel}
+                    resetSpells={resetSpells}
+                    createSpellLevel={createSpellLevel}
                     creatureId={creature.id}
                   />
                   )}
@@ -237,7 +238,6 @@ class CreatureWrapper extends Component {
                       creature={creature}
                       active={active}
                       updateCreatureSpells={updateCreatureSpells}
-                      resetSpells={resetSpells}
                       addSpellSlot={addSpellSlot}
                       removeSpellSlot={removeSpellSlot}
                     />

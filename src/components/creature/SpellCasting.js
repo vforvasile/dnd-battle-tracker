@@ -11,7 +11,6 @@ export default function SpellCasting({
   creature,
   active,
   updateCreatureSpells,
-  resetSpells,
   addSpellSlot,
   removeSpellSlot,
 }) {
@@ -47,10 +46,6 @@ export default function SpellCasting({
   const onRemoveSpellSlot = (level) => {
     removeSpellSlot(creature.id, level);
     handleMouseOver(level);
-  };
-
-  const onResetSpells = () => {
-    resetSpells(creature.id);
   };
 
   return (
@@ -91,16 +86,12 @@ export default function SpellCasting({
           {spellData.ability}
         </span>
         )}
-
-        <span className="reset-spell-button" onClick={onResetSpells}>
-          ↻ Reset Spells
-        </span>
       </div>
       {spellData.spells.map((item) => {
         if (item.level === '0') return null;
         const isDisabled = slotsExpired(item.slots);
         return (
-          <div onFocus={() => {}} onMouseOver={() => handleMouseOver(item.level)} onClick={onClickRandom} key={item.level} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <div onFocus={() => {}} onMouseOver={() => handleMouseOver(item.level)} onClick={onClickRandom} key={`Item-Level-${item.level}`} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             <span
               className={`spell-level ${isDisabled ? 'used-spells' : ''}`}
             >
@@ -110,7 +101,7 @@ export default function SpellCasting({
             </span>
             {item.slots.map((slot) => (
               <Checkbox
-                key={slot.slotIndex}
+                key={`Level-${item.level}-${slot.slotIndex}`}
                 checked={slot.used}
                 onChange={(ev) => onChangeSlot(ev, item.level, slot.slotIndex)}
               />

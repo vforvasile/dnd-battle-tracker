@@ -106,15 +106,17 @@ export function createSpellLevel(state, creatureId, { level, slotNumber }) {
 
   const ariaAnnouncement = `Spell level added for ${creature.name}`;
 
+  const stringLevel = `${level}`;
+
   // if the creature doesn't have spell data, create it
   if (!creature.spellData) {
     const newData = {
-        // TODO: make this into a function
+      // TODO: make this into a function
       spells: [
         {
           slots: Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: index })),
           count: slotNumber,
-          level,
+          level: stringLevel,
           knownSpells: [],
         },
       ],
@@ -126,11 +128,11 @@ export function createSpellLevel(state, creatureId, { level, slotNumber }) {
   const { spellData } = creature;
   // update
   // update slots for existing spell level
-  if (spellData.spells.some((spell) => spell.level === level)) {
+  if (spellData.spells.some((spell) => spell.level === stringLevel)) {
     const newSpells = spellData.spells.map((spell) => {
-      if (spell.level === level) {
+      if (spell.level === stringLevel) {
         const { slots } = spell;
-        const newSlots = Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: slots.length+index }));
+        const newSlots = Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: slots.length + index }));
         const updatedSlots = [...slots, ...newSlots];
         return { ...spell, slots: updatedSlots };
       }
@@ -146,7 +148,7 @@ export function createSpellLevel(state, creatureId, { level, slotNumber }) {
   const newSpells = [...spellData.spells, {
     slots: Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: index })),
     count: slotNumber,
-    level,
+    level: stringLevel,
     knownSpells: [],
   }];
 

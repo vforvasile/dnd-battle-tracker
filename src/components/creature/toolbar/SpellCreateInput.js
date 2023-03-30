@@ -1,6 +1,6 @@
 import React from 'react';
 import CreatureToolbarInput from './CreatureToolbarInput';
-import InitiativeIcon from '../../icons/InitiativeIcon';
+import CrossIcon from '../../icons/CrossIcon';
 
 export default function SpellCreateInput({
   id,
@@ -16,7 +16,7 @@ export default function SpellCreateInput({
       rightSubmit={(slotNumber) => addSpellSlots(id, { spellLevel, slotNumber })}
       rightControls={{
         rightTitle: 'Add spell slots',
-        RightSubmitIcon: <InitiativeIcon />,
+        RightSubmitIcon: <CrossIcon />,
       }}
       inputId={`spellLevel-${id}`}
     />
