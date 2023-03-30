@@ -56,31 +56,42 @@ export default function SpellCasting({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 30 }}>
       <div className="spell-info">
+        {spellData.school && (
         <span className="spell-label">
           <b>School:</b>
           {' '}
-          { capitalizeWord(spellData.school)}
+          {capitalizeWord(spellData.school)}
         </span>
+        )}
+        {spellData.level && (
         <span className="spell-label">
           <b>Level:</b>
           {' '}
           {spellData.level}
         </span>
+        )}
+        {spellData.saveDC && (
         <span className="spell-label">
           <b>Save DC:</b>
           {' '}
           {spellData.saveDC}
         </span>
+        )}
+        {spellData.modifier && (
         <span className="spell-label">
           <b>Spell MOD:</b>
           {' '}
           {spellData.modifier}
         </span>
+        )}
+        {spellData.ability && (
         <span className="spell-label">
           <b>Spell Class:</b>
           {' '}
           {spellData.ability}
         </span>
+        )}
+
         <span className="reset-spell-button" onClick={onResetSpells}>
           ↻ Reset Spells
         </span>

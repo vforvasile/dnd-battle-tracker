@@ -28,7 +28,6 @@ export const getCreatureSpellData = (abilities) => {
     };
   });
 
-
   const spellData = {
     saveDC: spellcasting.dc,
     modifier: spellcasting.modifier,
@@ -60,3 +59,5 @@ export const findAndChangeSpellSlot = (spells, { level, slotIndex, value }) => s
   }
   return currentLevel;
 });
+
+export const sortSpells = (spells) => [...spells].sort((a, b) => a.level - b.level);

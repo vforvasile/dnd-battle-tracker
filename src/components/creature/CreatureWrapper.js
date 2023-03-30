@@ -161,6 +161,7 @@ class CreatureWrapper extends Component {
       toggleCreatureLock,
       toggleCreatureShare,
       toggleCreatureHitPointsShare,
+      createSpellLevel,
     } = creatureManagement;
 
     const healthPoints = (
@@ -226,6 +227,7 @@ class CreatureWrapper extends Component {
                   />
                   {showSpellCreator && (
                   <SpellToolbar
+                  createSpellLevel={createSpellLevel}
                     creatureId={creature.id}
                   />
                   )}

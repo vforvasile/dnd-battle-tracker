@@ -43,6 +43,7 @@ import {
   resetSpells,
   addSpellSlot,
   removeSpellSlot,
+  createSpellLevel,
 } from '../../state/CreatureManager';
 import {
   save,
@@ -138,6 +139,7 @@ function DungeonMasterApp({
     resetSpells: updateBattle(resetSpells),
     addSpellSlot: updateBattle(addSpellSlot),
     removeSpellSlot: updateBattle(removeSpellSlot),
+    createSpellLevel: updateBattle(createSpellLevel),
   };
 
   const onScrollActiveInitiative = () => {
