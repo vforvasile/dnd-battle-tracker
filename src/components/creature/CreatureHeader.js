@@ -4,6 +4,7 @@ import CreatureLocker from '../buttons/CreatureLocker';
 import MonsterSearcher from '../buttons/MonsterSearcher';
 import CreatureSharer from '../buttons/CreatureSharer';
 import CreatureHitPointsSharer from '../buttons/CreatureHitPointsSharer';
+import CreatureSpellCreator from '../buttons/CreatureSpellCreator';
 
 function getName(expanded, active, name, multiColumn) {
   const maxLength = 22;
@@ -41,6 +42,10 @@ export default function CreatureHeader({
   const controlsClass = 'creature-header--controls';
   const controlsClasses = expandedOrActive && multiColumn ? `${controlsClass} ${controlsClass}__multicolumn` : controlsClass;
 
+
+  const toggledCreateSpell = false;
+  const onToggleCreateSpell = () => {};
+
   const creatureExpander = (
     <CreatureExpander
       classes={classes}
@@ -77,6 +82,14 @@ export default function CreatureHeader({
     />
   );
 
+  const creatureSpellCreator = !playerSession && (
+    <CreatureSpellCreator
+      toggled={toggledCreateSpell}
+      name={name}
+      onToggleCreateSpell={onToggleCreateSpell}
+    />
+  );
+
   const monsterSearcher = !playerSession && (
     <MonsterSearcher
       search={name}
@@ -91,6 +104,7 @@ export default function CreatureHeader({
         {creatureLocker}
         {creatureSharer}
         {creatureHitPointsSharer}
+        {creatureSpellCreator}
       </div>
     </div>
   );
