@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import CollapsedCreature from './CollapsedCreature';
 import ExpandedCreature from './ExpandedCreature';
@@ -10,6 +11,7 @@ import { getAvailableConditions } from '../../state/ConditionsManager';
 import { getHitPointsBar, shouldShowHitPoints } from '../../display/displayLogic';
 import CreatureStats from './CreatureStats';
 import SpellCasting from './SpellCasting';
+import SpellToolbar from './toolbar/SpellToolbar';
 
 function getCreatureAriaLabel(creature, active, expanded) {
   const { name } = creature;
@@ -40,11 +42,13 @@ class CreatureWrapper extends Component {
 
     this.state = {
       expanded: true,
+      showSpellCreator: false,
     };
 
     this.expandCreatureHandler = this.expandCreatureHandler.bind(this);
     this.focusHandler = this.focusHandler.bind(this);
     this.hasBrowserFocus = this.hasBrowserFocus.bind(this);
+    this.onToggleCreateSpell = this.onToggleCreateSpell.bind(this);
     this.newCreatureToolbar = window.FLAG_creatureToolbar;
   }
 
@@ -64,6 +68,7 @@ class CreatureWrapper extends Component {
 
     const {
       expanded,
+      showSpellCreator,
     } = this.state;
 
     const shouldUpdate = JSON.stringify(nextProps.creature) !== JSON.stringify(creature)
@@ -71,7 +76,8 @@ class CreatureWrapper extends Component {
       || nextProps.focused !== focused
       || nextProps.toolbarFocused !== toolbarFocused
       || nextState.expanded !== expanded
-      || nextProps.round !== round;
+      || nextProps.round !== round
+      || nextState.showSpellCreator !== showSpellCreator;
 
     return shouldUpdate;
   }
@@ -81,6 +87,10 @@ class CreatureWrapper extends Component {
     if (active && prevProps.active === false) {
       setToolbarFocus(false);
     }
+  }
+
+  onToggleCreateSpell() {
+    this.setState((prevState) => ({ ...prevState, expanded: true, showSpellCreator: !prevState.showSpellCreator }));
   }
 
   expandCreatureHandler() {
@@ -135,7 +145,7 @@ class CreatureWrapper extends Component {
     const alreadyFocused = this.hasBrowserFocus('#creature-wrapper');
     const toolbarAlreadyFocused = this.hasBrowserFocus('#creature-toolbar');
 
-    const { expanded } = this.state;
+    const { expanded, showSpellCreator } = this.state;
 
     const showExpanded = active || expanded;
     const activeClassModifier = active ? 'creature-wrapper__active' : '';
@@ -175,7 +185,7 @@ class CreatureWrapper extends Component {
       rightPercentage,
     ] = getHitPointsBar(creatureHealthPoints, maxHealthPoints, alive, showHitPoints);
 
-    console.log('current creature state', creature);
+    console.log('current creature state', creature, showSpellCreator);
 
     return (
       <>
@@ -199,6 +209,7 @@ class CreatureWrapper extends Component {
               focused={focused && !toolbarFocused && !alreadyFocused}
               multiColumn={multiColumn}
               playerSession={playerSession}
+              onToggleCreateSpell={this.onToggleCreateSpell}
             />
             {showExpanded
               ? (
@@ -213,6 +224,12 @@ class CreatureWrapper extends Component {
                     showHealth={showHitPoints}
                     playerSession={playerSession}
                   />
+                  {showSpellCreator && (
+                  <SpellToolbar
+                    creatureId={creature.id}
+                  />
+                  )}
+
                   {creature.spellData && (
                     <SpellCasting
                       creature={creature}

@@ -1409,7 +1409,16 @@ input[type="number"] {
     margin: 2px;
     font-size: 1.3rem;
   }
-  
+
+  .spell-toolbar{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+  .spell-input{
+    width: 120px;
+    margin-left: 20px;
+  }
 
 /* spell casting */
 

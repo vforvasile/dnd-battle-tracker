@@ -26,11 +26,13 @@ export default function CreatureHeader({
   expandHandler,
   focused,
   multiColumn,
+  onToggleCreateSpell,
 }) {
   const {
     alive, name, hitPointsShared, locked, shared,
   } = creature;
   const expandedOrActive = expanded || active;
+  const [toggledCreateSpell, setToggleCreateSpell] = React.useState(false);
 
   const nameClass = 'creature-name';
   const nameModifier = alive ? '' : 'collapsed-creature--name__dead';
@@ -42,9 +44,10 @@ export default function CreatureHeader({
   const controlsClass = 'creature-header--controls';
   const controlsClasses = expandedOrActive && multiColumn ? `${controlsClass} ${controlsClass}__multicolumn` : controlsClass;
 
-
-  const toggledCreateSpell = false;
-  const onToggleCreateSpell = () => {};
+  const toggleCreateSpell = () => {
+    onToggleCreateSpell();
+    setToggleCreateSpell((prev) => !prev);
+  };
 
   const creatureExpander = (
     <CreatureExpander
@@ -86,7 +89,7 @@ export default function CreatureHeader({
     <CreatureSpellCreator
       toggled={toggledCreateSpell}
       name={name}
-      onToggleCreateSpell={onToggleCreateSpell}
+      onToggleCreateSpell={toggleCreateSpell}
     />
   );
 
