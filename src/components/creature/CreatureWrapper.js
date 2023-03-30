@@ -12,6 +12,7 @@ import { getHitPointsBar, shouldShowHitPoints } from '../../display/displayLogic
 import CreatureStats from './CreatureStats';
 import SpellCasting from './SpellCasting';
 import SpellToolbar from './toolbar/SpellToolbar';
+import { getRemainingSpellSlots } from '../../util/spells';
 
 function getCreatureAriaLabel(creature, active, expanded) {
   const { name } = creature;
@@ -166,6 +167,7 @@ class CreatureWrapper extends Component {
 
     const healthPoints = (
       <HealthPoints
+        spellsLeft={creature.spellData?.spells ? getRemainingSpellSlots(creature.spellData.spells) : null}
         armorClass={armorClass}
         short={!showExpanded}
         hp={creatureHealthPoints}

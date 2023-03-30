@@ -61,3 +61,8 @@ export const findAndChangeSpellSlot = (spells, { level, slotIndex, value }) => s
 });
 
 export const sortSpells = (spells) => [...spells].sort((a, b) => a.level - b.level);
+
+export const getRemainingSpellSlots = (spells) => spells.reduce((acc, spell) => {
+  const remaining = spell.slots.filter((slot) => !slot.used).length;
+  return acc + remaining;
+}, 0);
