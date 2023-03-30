@@ -88,10 +88,12 @@ export function removeSpellSlot(state, creatureId, spellLevel) {
   const newSpells = spellData.spells.map((spell) => {
     if (spell.level === spellLevel) {
       const { slots } = spell;
-      return { ...spell, slots: slots.filter((_, index) => slots.length - index !== 1) };
+      const updatedSlots = slots.filter((_, index) => slots.length - index !== 1);
+      if (updatedSlots.length === 0) return null;
+      return { ...spell, slots: updatedSlots };
     }
     return spell;
-  });
+  }).filter((spell) => spell !== null);
 
   const newData = { ...spellData, spells: newSpells };
 
