@@ -62,7 +62,7 @@ export default function SpellStat({
 
         )}
       </div>
-      {/* <br /> */}
+      <br />
       <p id="spell-level-text">
         {spellData.spells.map((spellThread) => {
           const levelName = spellThread.level === '0' ? 'Cantrips' : ` ${spellThread.level}${getLevelPrefix(spellThread.level)} level`;

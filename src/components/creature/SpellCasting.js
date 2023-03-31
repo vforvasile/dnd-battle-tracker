@@ -65,6 +65,7 @@ export default function SpellCasting({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 30 }}>
+      <div className="creature-note-list--label">Spellcasting</div>
       <div className="spell-info">
         {spellData.school && (
         <span className="spell-label">
