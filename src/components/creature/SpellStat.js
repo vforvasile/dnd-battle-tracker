@@ -1,33 +1,95 @@
 import React from 'react';
 import DescriptionHighlight from './DescriptionHighlight';
 
+const getLevelPrefix = (level) => {
+  switch (level) {
+    case '1':
+      return 'st';
+    case '2':
+      return 'nd';
+    case '3':
+      return 'rd';
+    default:
+      return 'th';
+  }
+};
+
 export default function SpellStat({
   description,
-  spells,
+  spellData,
 }) {
+  if (!spellData) {
+    return (
+      <div className="property-block">
+        <h4>
+          Spellcasting
+          .
+          {' '}
+        </h4>
+
+        {description && (
+        <p>
+          <DescriptionHighlight
+            text={description}
+          />
+          {' '}
+        </p>
+        )}
+      </div>
+    );
+  }
   // cut the text until the first spell
   const newDescription = description.split('prepared:');
   const newText = newDescription[0];
 
   const spellHeader = newText ? `${newText} prepared:` : '';
-  console.log('new', newDescription);
 
   return (
-    <div className="property-block">
-      <h4>
-        Spellcasting
-        .
-        {' '}
-      </h4>
+    <div>
+      <div className="property-block">
+        <h4>
+          Spellcasting
+          .
+          {' '}
+        </h4>
 
-      {spellHeader && (
-      <p>
-        <DescriptionHighlight
-          text={spellHeader}
-        />
-        {' '}
+        {spellHeader && (
+        <p>
+          <DescriptionHighlight
+            text={spellHeader}
+          />
+        </p>
+
+        )}
+      </div>
+      {/* <br /> */}
+      <p id="spell-level-text">
+        {spellData.spells.map((spellThread) => {
+          const levelName = spellThread.level === '0' ? 'Cantrips' : ` ${spellThread.level}${getLevelPrefix(spellThread.level)} level`;
+          const suffix = spellThread.level === '0' ? '(at will):' : `(${spellThread.slots.length} slots):`;
+          return (
+            <span key={`Level-${spellThread.level}`}>
+              <span>
+                <b>{levelName}</b>
+                {' '}
+                {suffix}
+                {' '}
+              </span>
+              {spellThread.knownSpells.map((spell, index) => (
+                <span key={spell.name}>
+                  <span className="spell-text">
+                    {spell.name}
+                  </span>
+                  {spellThread.knownSpells.length - index !== 1 && <span>{', '}</span>}
+                </span>
+              ))}
+              <br />
+            </span>
+
+          );
+        })}
       </p>
-      )}
+
     </div>
   );
 }

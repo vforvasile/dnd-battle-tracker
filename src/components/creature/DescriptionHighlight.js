@@ -41,6 +41,8 @@ function DescriptionHighlight({ text }) {
       return word;
     }).join(' ');
 
+    const defaultClassName = 'highlight-text';
+
     return (
 
       <Highlighter
@@ -48,8 +50,8 @@ function DescriptionHighlight({ text }) {
         searchWords={finalWords}
         autoEscape
         textToHighlight={newSentence}
-        activeClassName={isAttackType ? 'attack-highlight' : 'damage-highlight'}
-        highlightClassName={isAttackType ? 'attack-highlight' : 'damage-highlight'}
+        activeClassName={`${defaultClassName} ${isAttackType ? 'attack-highlight' : 'damage-highlight'}`}
+        highlightClassName={`${defaultClassName} ${isAttackType ? 'attack-highlight' : 'damage-highlight'}`}
       />
 
     );

@@ -1474,6 +1474,23 @@ input.checked::before {
   color: #c0c0c0;
 }
 
+.highlight-text{
+  font-size: 13.5px;
+    line-height: 1.2em;
+    display: inline;
+    margin: 0;
+}
+#spell-level-text{
+  font-size: 13.5px;
+  line-height: 1.7em;
+  margin: 0;
+}
+
+.spell-text{
+  color: #000;
+    text-decoration: underline solid #704cd9;
+}
+
 /* .checkbox-wrapper input[type="checkbox"]:focus {
   box-shadow: 0 0 20px #007a7e;
 } */

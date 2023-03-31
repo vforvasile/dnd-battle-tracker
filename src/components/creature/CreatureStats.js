@@ -259,7 +259,7 @@ export default function CreatureStats({
               <SpellStat
                 key={ability.name}
                 description={ability.desc}
-                spells={[]}
+                spellData={creature.spellData}
               />
             );
           }

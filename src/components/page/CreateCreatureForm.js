@@ -139,7 +139,10 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
           healthPoints: data.hit_points,
           armorClass: getArmorClass(data.armor_class),
           spellData: getCreatureSpellData(data.special_abilities),
-          apiData: data,
+          apiData: {
+            ...data,
+            spellData: getCreatureSpellData(data.special_abilities),
+          },
         }));
       })
       .finally(() => {
