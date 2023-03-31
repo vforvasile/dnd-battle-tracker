@@ -84,6 +84,7 @@ This D&D Battle Tracker simply aims to automate the process of tracking combat u
   * [Next button](https://game-icons.net/1x1/delapouite/next-button.html)
   * [Previous button](https://game-icons.net/1x1/delapouite/previous-button.html)
   * [Dice 20 faces 20](https://game-icons.net/1x1/delapouite/dice-twenty-faces-twenty.html)
+  * [Scroll quill icon](https://game-icons.net/1x1/delapouite/scroll-quill.html)
 * Icons by [Lorc](http://lorcblog.blogspot.com/):
   * [Magnifying glass](https://game-icons.net/1x1/lorc/magnifying-glass.html)
   * [Crossed swords](https://game-icons.net/1x1/lorc/crossed-swords.html)
