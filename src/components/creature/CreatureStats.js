@@ -1,70 +1,14 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
-import Highlighter from 'react-highlight-words';
-
 import {
-  beautifySnakeWord, capitalizeWord, DamageTypesObject, getAbilityWithSign, getArmorClass, getModifierSign, getProficiencyBonus,
+  beautifySnakeWord, capitalizeWord, getAbilityWithSign, getArmorClass, getModifierSign, getProficiencyBonus,
 } from '../../util/characterSheet';
 import ExternalLink from '../page/ExternalLink';
+import DescriptionHighlight from './DescriptionHighlight';
+import SpellStat from './SpellStat';
 
 const SAVING_THROW_CUT = 'Saving Throw:';
 const SKILL_CUT = 'Skill:';
-const HIT_CUT = 'Hit:';
-
-const renderHighlighter = (text) => {
-  try {
-    const splitText = text.split(HIT_CUT);
-    if (splitText.length === 0) {
-      return <p>text</p>;
-    }
-
-    const attackRegexp = /\d+d\d+( \+ \d+)?/g;
-    const attackWords = text.match(attackRegexp) ?? [];
-
-    const damageRegexp = /\+\d+ to hit/g;
-    const damageWords = text.match(damageRegexp) ?? [];
-
-    const allWords = [...attackWords, ...damageWords];
-
-    return splitText.map((item, index) => {
-      const finalWords = allWords.filter((word) => item.includes(word));
-      const textLine = index === 0 ? item : `${HIT_CUT}${item}`;
-
-      const isAttackType = splitText.length === 2 && index === 0;
-
-      const damageTypeRegexp = /\b\w+\b damage/g;
-      const foundDamages = textLine.match(damageTypeRegexp) ?? [];
-
-      const filterDamageTypes = foundDamages.map((currentDamage) => currentDamage.replace(' damage', '')).filter((thisDamage) => thisDamage.toLowerCase() in DamageTypesObject);
-      const finalDamageTypesArr = Array.from(new Set(filterDamageTypes));
-
-      const sentence = textLine.split(' ');
-
-      const newSentence = sentence.map((word) => {
-        if (finalDamageTypesArr.includes(word)) {
-          return `${word} ${DamageTypesObject[word]}`;
-        }
-        return word;
-      }).join(' ');
-
-      return (
-
-        <Highlighter
-          key={textLine}
-          searchWords={finalWords}
-          autoEscape
-          textToHighlight={newSentence}
-          activeClassName={isAttackType ? 'attack-highlight' : 'damage-highlight'}
-          highlightClassName={isAttackType ? 'attack-highlight' : 'damage-highlight'}
-        />
-
-      );
-    });
-  } catch (error) {
-    console.log('regex error', error);
-    return <p>text</p>;
-  }
-};
 
 export default function CreatureStats({
   creature,
@@ -309,19 +253,32 @@ export default function CreatureStats({
           <polyline points="0,0 400,2.5 0,5" />
         </svg>
 
-        {creature.special_abilities?.length > 0 && creature.special_abilities.map((ability) => (
-          <div key={ability.name} className="property-block">
-            <h4>
-              {ability.name}
-              .
-              {' '}
-            </h4>
-            <p>
-              {renderHighlighter(ability.desc)}
-              {' '}
-            </p>
-          </div>
-        ))}
+        {creature.special_abilities?.length > 0 && creature.special_abilities.map((ability) => {
+          if (ability.name === 'Spellcasting') {
+            return (
+              <SpellStat
+                key={ability.name}
+                description={ability.desc}
+                spells={[]}
+              />
+            );
+          }
+          return (
+            <div key={ability.name} className="property-block">
+              <h4>
+                {ability.name}
+                .
+                {' '}
+              </h4>
+              <p>
+                <DescriptionHighlight
+                  text={ability.desc}
+                />
+                {' '}
+              </p>
+            </div>
+          );
+        })}
 
       </div>
       <div className="section-right">
@@ -336,7 +293,9 @@ export default function CreatureStats({
                   {' '}
                 </h4>
                 <p>
-                  {renderHighlighter(action.desc)}
+                  <DescriptionHighlight
+                    text={action.desc}
+                  />
                   {' '}
                 </p>
               </div>
@@ -355,7 +314,9 @@ export default function CreatureStats({
                 {' '}
               </h4>
               <p>
-                {renderHighlighter(action.desc)}
+                <DescriptionHighlight
+                  text={action.desc}
+                />
                 {' '}
               </p>
             </div>
