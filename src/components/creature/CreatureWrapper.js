@@ -9,9 +9,6 @@ import CreatureHeader from './CreatureHeader';
 import CreatureRemover from '../buttons/CreatureRemover';
 import { getAvailableConditions } from '../../state/ConditionsManager';
 import { getHitPointsBar, shouldShowHitPoints } from '../../display/displayLogic';
-import CreatureStats from './CreatureStats';
-import SpellCasting from './SpellCasting';
-import SpellToolbar from './toolbar/SpellToolbar';
 import { getRemainingSpellSlots } from '../../util/spells';
 
 function getCreatureAriaLabel(creature, active, expanded) {
@@ -216,45 +213,24 @@ class CreatureWrapper extends Component {
             />
             {showExpanded
               ? (
-                <>
-                  <ExpandedCreature
-                    creature={creature}
-                    round={round}
-                    secondsElapsed={secondsElapsed}
-                    removeCreature={removeCreature}
-                    removeNoteFromCreature={removeNoteFromCreature}
-                    healthPoints={healthPoints}
-                    showHealth={showHitPoints}
-                    playerSession={playerSession}
-                  />
-                  {showSpellCreator && (
-                  <SpellToolbar
-                    resetSpells={resetSpells}
-                    createSpellLevel={createSpellLevel}
-                    creatureId={creature.id}
-                  />
-                  )}
-
-                  {creature.spellData && (
-                    <SpellCasting
-                      creature={creature}
-                      active={active}
-                      updateCreatureSpells={updateCreatureSpells}
-                      addSpellSlot={addSpellSlot}
-                      removeSpellSlot={removeSpellSlot}
-                      showSpellCreator={showSpellCreator}
-                    />
-                  )}
-
-                  {creature.apiData && (
-                  <div>
-                    <CreatureStats
-                      creature={creature.apiData}
-                      active={active}
-                    />
-                  </div>
-                  )}
-                </>
+                <ExpandedCreature
+                  creature={creature}
+                  round={round}
+                  secondsElapsed={secondsElapsed}
+                  removeCreature={removeCreature}
+                  removeNoteFromCreature={removeNoteFromCreature}
+                  healthPoints={healthPoints}
+                  showHealth={showHitPoints}
+                  playerSession={playerSession}
+                    // Spell casting
+                  active={active}
+                  updateCreatureSpells={updateCreatureSpells}
+                  addSpellSlot={addSpellSlot}
+                  removeSpellSlot={removeSpellSlot}
+                  showSpellCreator={showSpellCreator}
+                  createSpellLevel={createSpellLevel}
+                  resetSpells={resetSpells}
+                />
 
               )
               : (

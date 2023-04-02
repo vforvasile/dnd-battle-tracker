@@ -46,8 +46,6 @@ export default function SpellCasting({
     );
   }
 
-  console.log('SpellCasting data', spellData);
-
   const onChangeSlot = (event, level, slotIndex) => {
     const { checked } = event.target;
     updateCreatureSpells(creature.id, { level, slotIndex, value: checked });
