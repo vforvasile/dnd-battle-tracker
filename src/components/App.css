@@ -1494,3 +1494,36 @@ input.checked::before {
 /* .checkbox-wrapper input[type="checkbox"]:focus {
   box-shadow: 0 0 20px #007a7e;
 } */
+
+/* spell modal block */
+.spell-modal-parent {
+  /* display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; */
+  /* margin: -10px; */
+  }
+.spell-modal-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex:1
+}
+
+.spell-modal-item{
+  -webkit-flex: 25%;
+  -ms-flex: 25%;
+  flex: 25%;
+}
+
+.spell-modal-separator{
+  width: 100%;
+  height: 3px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: #822000;
+}

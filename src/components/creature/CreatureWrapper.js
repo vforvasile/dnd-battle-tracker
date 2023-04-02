@@ -39,7 +39,7 @@ class CreatureWrapper extends Component {
     super(props);
 
     this.state = {
-      expanded: false,
+      expanded: true,
       showSpellCreator: false,
     };
 

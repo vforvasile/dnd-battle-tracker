@@ -1,5 +1,6 @@
 import React from 'react';
 import DescriptionHighlight from './DescriptionHighlight';
+import SpellList from './SpellList';
 
 const getLevelPrefix = (level) => {
   switch (level) {
@@ -75,14 +76,12 @@ export default function SpellStat({
                 {suffix}
                 {' '}
               </span>
-              {spellThread.knownSpells.map((spell, index) => (
-                <span key={spell.name}>
-                  <span className="spell-text">
-                    {spell.name}
-                  </span>
-                  {spellThread.knownSpells.length - index !== 1 && <span>{', '}</span>}
-                </span>
-              ))}
+              {spellThread.knownSpells && (
+              <SpellList
+                knownSpells={spellThread.knownSpells}
+              />
+              )}
+
               <br />
             </span>
 
