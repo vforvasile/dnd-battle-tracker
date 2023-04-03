@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 import React, { useState } from 'react';
-import { capitalizeWord } from '../../util/characterSheet';
-import Checkbox from '../buttons/CheckBox';
+import { capitalizeWord } from '../../../util/characterSheet';
+import Checkbox from '../../buttons/CheckBox';
 
 const slotsExpired = (slots) => slots.every((slot) => slot.used);
 

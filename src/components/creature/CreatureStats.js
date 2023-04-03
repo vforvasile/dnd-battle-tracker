@@ -5,7 +5,7 @@ import {
 } from '../../util/characterSheet';
 import ExternalLink from '../page/ExternalLink';
 import DescriptionHighlight from './DescriptionHighlight';
-import SpellStat from './SpellStat';
+import SpellStat from './spells/SpellStat';
 
 const SAVING_THROW_CUT = 'Saving Throw:';
 const SKILL_CUT = 'Skill:';

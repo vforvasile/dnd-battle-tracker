@@ -1,5 +1,5 @@
 import React from 'react';
-import DescriptionHighlight from './DescriptionHighlight';
+import DescriptionHighlight from '../DescriptionHighlight';
 import SpellList from './SpellList';
 
 const getLevelPrefix = (level) => {

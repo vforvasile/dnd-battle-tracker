@@ -2,7 +2,7 @@ import React from 'react';
 import CreatureNoteList from './CreatureNoteList';
 import CreatureStats from './CreatureStats';
 import CreatureStatus from './CreatureStatus';
-import SpellCasting from './SpellCasting';
+import SpellCasting from './spells/SpellCasting';
 import SpellToolbar from './toolbar/SpellToolbar';
 
 export default function ExpandedCreature({
