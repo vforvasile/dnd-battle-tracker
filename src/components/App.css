@@ -1504,7 +1504,6 @@ input.checked::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
   }
 
 .spell-modal-separator{
@@ -1599,4 +1598,17 @@ input.checked::before {
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+@media (max-width:768px)  {
+  .spell-modal-parent {
+    --auto-grid-min-size: 6rem;
+  }
+  .spell-modal-note
+  .spell-modal-description{
+    font-size: 14px;
+  }
+  .spell-modal-header{
+    height: 70px;
+  }
 }
