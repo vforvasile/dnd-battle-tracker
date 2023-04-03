@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
+import DescriptionHighlight from '../DescriptionHighlight';
 import { spellIcon, spellIconBackground, spellModalStyle } from './utils';
 
 const BASE_API_URL = 'https://www.dnd5eapi.co';
@@ -116,10 +117,10 @@ export default function SpellModal({
           {/* separator line below */}
           <div className="spell-modal-separator" />
           <div className="spell-modal-description">
-            {spellInfo.desc.map((el) => (<p>{el}</p>))}
+            {spellInfo.desc.map((el) => (<p><DescriptionHighlight text={el} /></p>))}
           </div>
           <div className="spell-modal-note">
-            {spellInfo.higher_level.map((el) => (<p>{el}</p>))}
+            {spellInfo.higher_level.map((el) => (<p><DescriptionHighlight text={el} /></p>))}
           </div>
         </div>
       </div>
