@@ -17,20 +17,28 @@ export const spellModalStyle = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '55%',
-    height: '55%',
     backgroundColor: '#FDF1DC',
     borderRadius: '20px',
     boxShadow: '0px 1px 18px -4px rgba(117,74,50,0.98)',
+    WebkitOverflowScrolling: 'touch',
+    overflowScrolling: 'touch',
     '-webkit-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
     '-moz-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
   },
-  // '@media (max-width: 500px)': {
-  //   content: {
-  //     width: '90%',
-  //     height: '70%',
-  //   },
-  // },
+};
+
+export const spellModalStyleWeb = {
+  content: {
+    width: '55%',
+    height: '55%',
+  },
+};
+
+export const spellModalStyleMobile = {
+  content: {
+    width: '80%',
+    height: '60%',
+  },
 };
 
 export const spellIconBackground = (school) => {

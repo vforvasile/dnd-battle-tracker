@@ -1,9 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { Triangle } from 'react-loader-spinner';
+import { useMediaQuery } from 'react-responsive';
 
 import DescriptionHighlight from '../DescriptionHighlight';
-import { spellIcon, spellIconBackground, spellModalStyle } from './utils';
+import {
+  spellIcon, spellIconBackground, spellModalStyle, spellModalStyleMobile, spellModalStyleWeb,
+} from './utils';
 
 const BASE_API_URL = 'https://www.dnd5eapi.co';
 
@@ -15,12 +19,13 @@ export default function SpellModal({
   const [loading, setLoading] = React.useState(false);
   const [spellInfo, setSpellInfo] = React.useState(null);
 
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+
   useEffect(() => {
     setLoading(true);
     fetch(`${BASE_API_URL}${currentSpell.url}`, { 'Content-Type': 'application/json' })
       .then((response) => response.json())
       .then((data) => {
-        console.log('res', data);
         setSpellInfo(data);
       })
       .catch((error) => {
@@ -146,7 +151,8 @@ export default function SpellModal({
   console.log('spellInfo', spellInfo);
   return (
     <Modal
-      style={spellModalStyle}
+      // eslint-disable-next-line max-len
+      style={{ content: { ...spellModalStyle.content, ...(isTabletOrMobile ? spellModalStyleMobile.content : spellModalStyleWeb.content) } }}
       isOpen={visible}
       contentLabel="Minimal Modal Example"
       onRequestClose={onClose}
