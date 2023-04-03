@@ -5,14 +5,20 @@ const BASE_API_URL = 'https://www.dnd5eapi.co';
 
 const modalStyle = {
   content: {
+    padding: 0,
     top: '50%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '45%',
-    height: '45%',
+    width: '65%',
+    height: '65%',
+    backgroundColor: '#FDF1DC',
+    borderRadius: '20px',
+    boxShadow: '0px 1px 18px -4px rgba(117,74,50,0.98)',
+    '-webkit-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
+    '-moz-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
   },
 };
 
@@ -110,82 +116,90 @@ export default function SpellModal({
     if (!loading && !spellInfo) return <p>Spell not found</p>; // add fallback;
     return (
       <div className="spell-modal-box">
-        <div className="spell-modal-parent">
-          <div className="spell-modal-row">
+        <div className="spell-modal-header">
+          <div className="spell-modal-header-title">
+            {spellInfo.name}
+          </div>
+        </div>
+        <div className="spell-modal-body">
+          <div className="spell-modal-parent">
             <div className="spell-modal-item">
-              Level
-              {' '}
+              <div className="spell-modal-item-header">
+                Level
+              </div>
               <div>
                 {spellInfo.level}
               </div>
 
             </div>
             <div className="spell-modal-item">
-              casting_time
-              {' '}
+              <div className="spell-modal-item-header">
+                Casting Time
+              </div>
               <div>
                 {spellInfo.casting_time}
               </div>
 
             </div>
             <div className="spell-modal-item">
-              Range/Area
-              {' '}
+              <div className="spell-modal-item-header">
+                Range/Area
+              </div>
               <div>
                 {spellInfo.range}
               </div>
             </div>
             <div className="spell-modal-item">
-              Components
-              {' '}
+              <div className="spell-modal-item-header">
+                Components
+              </div>
               <div>
                 {spellInfo.components.map((el) => (<span>{el}</span>))}
               </div>
-
             </div>
-
-          </div>
-
-          <div className="spell-modal-row">
             <div className="spell-modal-item">
-              Duration
-              {' '}
+              <div className="spell-modal-item-header">
+                Duration
+              </div>
               <div>
                 {spellInfo.duration}
               </div>
 
             </div>
             <div className="spell-modal-item">
-              School
-              {' '}
+              <div className="spell-modal-item-header">
+                School
+              </div>
               <div>
                 {spellInfo.school?.name}
               </div>
 
             </div>
             <div className="spell-modal-item">
-              Attack/Save
-              {' '}
+              <div className="spell-modal-item-header">
+                Attack/Save
+              </div>
               <div>
-                {spellInfo.dc?.dc_type?.name}
+                {spellInfo.dc?.dc_type?.name ?? 'None'}
               </div>
             </div>
             <div className="spell-modal-item">
-              Damage/Effect
-              {' '}
+              <div className="spell-modal-item-header">
+                Damage/Effect
+              </div>
               <div>
                 None
               </div>
             </div>
           </div>
-        </div>
-        {/* separator line below */}
-        <div className="spell-modal-separator" />
-        <div className="spell-modal-description">
-          {spellInfo.desc.map((el) => (<p>{el}</p>))}
-        </div>
-        <div className="spell-modal-note">
-          {spellInfo.higher_level.map((el) => (<p>{el}</p>))}
+          {/* separator line below */}
+          <div className="spell-modal-separator" />
+          <div className="spell-modal-description">
+            {spellInfo.desc.map((el) => (<p>{el}</p>))}
+          </div>
+          <div className="spell-modal-note">
+            {spellInfo.higher_level.map((el) => (<p>{el}</p>))}
+          </div>
         </div>
       </div>
     );

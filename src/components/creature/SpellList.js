@@ -36,7 +36,7 @@ export default function SpellList({
       {renderModal()}
       {knownSpells.map((item, index) => (
         <span key={item.name}>
-          <a onClick={() => onOpenSpell(item)}>
+          <a className="spell-anchor" onClick={() => onOpenSpell(item)}>
             <span className="spell-text">
               {item.name}
             </span>

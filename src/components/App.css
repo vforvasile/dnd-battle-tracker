@@ -1497,28 +1497,15 @@ input.checked::before {
 
 /* spell modal block */
 .spell-modal-parent {
-  /* display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap; */
-  /* margin: -10px; */
-  }
-.spell-modal-row{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  flex:1
-}
+  --auto-grid-min-size: 10rem;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-.spell-modal-item{
-  -webkit-flex: 25%;
-  -ms-flex: 25%;
-  flex: 25%;
-}
+  }
 
 .spell-modal-separator{
   width: 100%;
@@ -1526,4 +1513,37 @@ input.checked::before {
   margin-bottom: 20px;
   margin-top: 20px;
   background-color: #822000;
+}
+
+.spell-modal-item-header{
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.spell-modal-header{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 120px;
+  padding: 0 10px 10px;
+  background-image: url('/src/images/spell_background.png');
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.spell-modal-body{
+  margin: 20px
+}
+
+.spell-modal-header-title{
+  font-size: 28px;
+  font-family: Roboto,Helvetica,sans-serif;
+  color: #fff;
+}
+
+.spell-anchor{
+  cursor: pointer;
 }

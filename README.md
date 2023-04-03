@@ -92,6 +92,11 @@ This D&D Battle Tracker simply aims to automate the process of tracking combat u
   * [Skull crossed bones](https://game-icons.net/1x1/lorc/skull-crossed-bones.html)
   * [Charm](https://game-icons.net/1x1/lorc/charm.html)
 
+
+### Images
+
+* [Dragon sculpture](https://www.artstation.com/artwork/VyrVER) Dragon's Domain: A Medieval Castle Library 1 by [Oana Rinaldi](https://www.artstation.com/oanarinaldi)
+
 ### Fonts
 
 * [Open Sans](https://fonts.google.com/specimen/Open+Sans) font by Steve Matteson
