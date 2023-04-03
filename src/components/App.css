@@ -1593,3 +1593,10 @@ input.checked::before {
 .spell-anchor{
   cursor: pointer;
 }
+
+.spell-modal-loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

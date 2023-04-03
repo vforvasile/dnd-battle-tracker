@@ -25,6 +25,12 @@ export const spellModalStyle = {
     '-webkit-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
     '-moz-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
   },
+  // '@media (max-width: 500px)': {
+  //   content: {
+  //     width: '90%',
+  //     height: '70%',
+  //   },
+  // },
 };
 
 export const spellIconBackground = (school) => {

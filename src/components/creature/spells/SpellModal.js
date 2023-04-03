@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
+import { Triangle } from 'react-loader-spinner';
+
 import DescriptionHighlight from '../DescriptionHighlight';
 import { spellIcon, spellIconBackground, spellModalStyle } from './utils';
 
@@ -31,7 +33,21 @@ export default function SpellModal({
   }, [currentSpell]);
 
   const renderSpellInfo = () => {
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+      return (
+        <div className="spell-modal-loading">
+          <Triangle
+            height="80"
+            width="80"
+            color="#822000"
+            ariaLabel="triangle-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible
+          />
+        </div>
+      );
+    }
     if (!loading && !spellInfo) return <p>Spell not found</p>; // add fallback;
     return (
       <div className="spell-modal-box">
