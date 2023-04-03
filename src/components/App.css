@@ -1515,10 +1515,17 @@ input.checked::before {
   background-color: #822000;
 }
 
+.spell-modal-item{
+  font-size: 18px;
+  color: #242527;
+}
+
 .spell-modal-item-header{
-  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-size: 12px;
   font-weight: bold;
-  margin-bottom: 10px;
+  color: #000;
+  margin-bottom: 5px;
 }
 .spell-modal-header{
   display: -webkit-flex;

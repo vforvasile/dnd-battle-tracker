@@ -76,7 +76,7 @@ export default function SpellModal({
                 Components
               </div>
               <div>
-                {spellInfo.components.map((el) => (<span>{el}</span>))}
+                {spellInfo.components.map((el, index) => (<span>{`${el}${spellInfo.components.length - index === 1 ? '' : ', '}`}</span>))}
               </div>
             </div>
             <div className="spell-modal-item">
