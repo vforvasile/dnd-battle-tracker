@@ -156,6 +156,7 @@ export default function SpellModal({
       isOpen={visible}
       contentLabel="Minimal Modal Example"
       onRequestClose={onClose}
+      appElement={document.getElementById('app')}
     >
       {renderSpellInfo()}
     </Modal>
