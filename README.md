@@ -84,12 +84,18 @@ This D&D Battle Tracker simply aims to automate the process of tracking combat u
   * [Next button](https://game-icons.net/1x1/delapouite/next-button.html)
   * [Previous button](https://game-icons.net/1x1/delapouite/previous-button.html)
   * [Dice 20 faces 20](https://game-icons.net/1x1/delapouite/dice-twenty-faces-twenty.html)
+  * [Scroll quill icon](https://game-icons.net/1x1/delapouite/scroll-quill.html)
 * Icons by [Lorc](http://lorcblog.blogspot.com/):
   * [Magnifying glass](https://game-icons.net/1x1/lorc/magnifying-glass.html)
   * [Crossed swords](https://game-icons.net/1x1/lorc/crossed-swords.html)
   * [Padlock](https://game-icons.net/1x1/lorc/padlock.html)
   * [Skull crossed bones](https://game-icons.net/1x1/lorc/skull-crossed-bones.html)
   * [Charm](https://game-icons.net/1x1/lorc/charm.html)
+* Spell School Icons by [Jasper_Ward-Berry](https://www.reddit.com/r/DnD/comments/jxca4n/oc_spell_school_vector_symbols/):
+
+### Images
+
+* [Dragon sculpture](https://www.artstation.com/artwork/VyrVER) Dragon's Domain: A Medieval Castle Library 1 by [Oana Rinaldi](https://www.artstation.com/oanarinaldi)
 
 ### Fonts
 

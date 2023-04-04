@@ -1,6 +1,9 @@
 import React from 'react';
 import CreatureNoteList from './CreatureNoteList';
+import CreatureStats from './CreatureStats';
 import CreatureStatus from './CreatureStatus';
+import SpellCasting from './spells/SpellCasting';
+import SpellToolbar from './toolbar/SpellToolbar';
 
 export default function ExpandedCreature({
   creature,
@@ -10,6 +13,13 @@ export default function ExpandedCreature({
   healthPoints,
   showHealth,
   playerSession,
+  updateCreatureSpells,
+  showSpellCreator,
+  resetSpells,
+  createSpellLevel,
+  addSpellSlot,
+  removeSpellSlot,
+  active,
 }) {
   const {
     initiative, id, conditions, notes, shared,
@@ -32,6 +42,24 @@ export default function ExpandedCreature({
           )}
         { (showHealth || showInitiative) && <div className="expanded-creature--separator" /> }
       </div>
+      {showSpellCreator && (
+      <SpellToolbar
+        resetSpells={resetSpells}
+        createSpellLevel={createSpellLevel}
+        creatureId={id}
+      />
+      )}
+
+      {creature.spellData && (
+      <SpellCasting
+        creature={creature}
+        active={active}
+        updateCreatureSpells={updateCreatureSpells}
+        addSpellSlot={addSpellSlot}
+        removeSpellSlot={removeSpellSlot}
+        showSpellCreator={showSpellCreator}
+      />
+      )}
       <CreatureNoteList
         creatureId={id}
         label="Conditions"
@@ -51,6 +79,12 @@ export default function ExpandedCreature({
         secondsElapsed={secondsElapsed}
         playerSession={playerSession}
       />
+      {creature.apiData && (
+      <CreatureStats
+        creature={creature.apiData}
+        active={active}
+      />
+      )}
     </>
   );
 }

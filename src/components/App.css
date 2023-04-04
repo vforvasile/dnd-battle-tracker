@@ -1246,19 +1246,18 @@ input[type="number"] {
 }
 #close-creature-stats{
   font-size: 1rem;
-  /* margin-left: 20px; */
   cursor: pointer;
-    border: 0px solid #822000;
-    border: 0px;
-    box-shadow: none;
-    width: auto;
-    border-radius: 0%;
-    height: auto;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: grey
+  border: 0px solid #822000;
+  border: 0px;
+  box-shadow: none;
+  width: auto;
+  border-radius: 0%;
+  height: auto;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey
 }
 .flexRow{
   display: flex;
@@ -1343,3 +1342,273 @@ input[type="number"] {
   outline: 2px solid #822000;
 }
 /* scroll to active initiative */
+
+/* spell casting */
+
+.used-spells {
+  text-decoration: line-through;
+}
+
+.spell-level {
+  margin-right: 1rem;
+  line-height: 30px;
+}
+
+#close-spell-stats{
+  font-size: 1rem;
+  cursor: pointer;
+  border: 0px solid #822000;
+  border: 0px;
+  box-shadow: none;
+  width: auto;
+  border-radius: 0%;
+  height: auto;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey
+}
+
+  .spell-info  {  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px 5px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". . . . . ";
+    margin-bottom: 20px;
+  }
+
+  .reset-spell-button{
+    text-align: center;
+    color: #822000;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+
+  .wrap-spell-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  .edit-spell {
+    cursor: pointer;
+    border: 1.5px solid #979AA4;
+    font-weight: bold;
+    background-color: #EBE1AD;
+    border-radius: 15px;
+    box-shadow: 0 0 3px #979AA4;
+    padding: 0px;
+    height: 30px;
+    min-height: 20px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    color: #979AA4;
+    margin: 2px;
+    font-size: 1.3rem;
+  }
+
+  .spell-toolbar{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+  .spell-input{
+    width: 120px;
+    margin-left: 20px;
+  }
+
+/* spell casting */
+
+.checkbox-wrapper{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+/* checkbox */
+.checkbox-wrapper input[type="checkbox"] {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  width: 1.6em;
+  height: 1.6em;
+  /* border-radius: 0.15em; */
+  margin-right: 0.5em;
+  border: 0.15em solid #822000;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #979AA4;
+  outline: none;
+  cursor: pointer;
+}
+
+input.checked {
+  background-color: #822000;
+  position: relative;
+}
+
+input.checked::before {
+  content: "\2718";
+  font-size: 1.20em;
+  color: #EBE1AD;
+  position: absolute;
+  right: 5px;
+  top: -3px;
+}
+
+.checkbox-wrapper input[type="checkbox"]:disabled {
+  border-color: #c0c0c0;
+  background-color: #c0c0c0;
+}
+
+.checkbox-wrapper input[type="checkbox"]:disabled + span {
+  color: #c0c0c0;
+}
+
+.highlight-text{
+  font-size: 13.5px;
+    line-height: 1.2em;
+    display: inline;
+    margin: 0;
+}
+#spell-level-text{
+  font-size: 13.5px;
+  line-height: 1.7em;
+  margin: 0;
+}
+
+.spell-text{
+  color: #000;
+    text-decoration: underline solid #704cd9;
+}
+
+/* .checkbox-wrapper input[type="checkbox"]:focus {
+  box-shadow: 0 0 20px #007a7e;
+} */
+
+/* spell modal block */
+.spell-modal-parent {
+  --auto-grid-min-size: 10rem;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+.spell-modal-separator{
+  width: 100%;
+  height: 3px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: #822000;
+}
+
+.spell-modal-item{
+  font-size: 18px;
+  color: #242527;
+}
+
+.spell-modal-item-header{
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 5px;
+}
+.spell-modal-header{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 120px;
+  padding: 0 10px 10px;
+  background-image: url('/src/images/spell_background.png');
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.spell-modal-body{
+  margin: 20px
+}
+
+.spell-modal-icon{
+  background: rgb(212,6,36,1);
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.evocation-background{
+  background: radial-gradient(circle, rgba(212,6,36,1) 33%, rgba(80,20,20,1) 92%);
+}
+.conjuration-background{
+  background: radial-gradient(circle, rgba(249,255,131,1) 28%, rgba(173,93,34,1) 92%);
+}
+.abjuration-background{
+  background: radial-gradient(circle, rgba(41,199,242,1) 29%, rgba(43,105,120,1) 89%);
+}
+.enchantment-background{
+  background: radial-gradient(circle, rgba(212,109,214,1) 29%, rgba(67,15,71,1) 89%);
+}
+.divination-background{
+  background: radial-gradient(circle, rgba(124,158,176,1) 32%, rgba(11,28,60,1) 100%);
+}
+.necromancy-background{
+  background: radial-gradient(circle, rgba(101,219,110,1) 19%, rgba(6,23,4,1) 100%);
+}
+.transmutation-background{
+  background: radial-gradient(circle, rgba(200,162,67,1) 30%, rgba(88,54,13,1) 83%);
+}
+.illusion-background{
+  background: radial-gradient(circle, rgba(215,131,255,1) 9%, rgba(50,20,62,1) 92%);
+}
+
+
+.spell-modal-header-title{
+  display: block;
+  font-size: 28px;
+  font-family: Roboto,Helvetica,sans-serif;
+  color: #fff;
+  font-weight: bold;
+}
+
+.spell-anchor{
+  cursor: pointer;
+}
+
+.spell-modal-loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@media (max-width:768px)  {
+  .spell-modal-parent {
+    --auto-grid-min-size: 6rem;
+  }
+  .spell-modal-note
+  .spell-modal-description{
+    font-size: 14px;
+  }
+  .spell-modal-header{
+    height: 70px;
+  }
+}

@@ -39,6 +39,11 @@ import {
   toggleCreatureLock,
   toggleCreatureShare,
   toggleCreatureHitPointsShare,
+  updateCreatureSpells,
+  resetSpells,
+  addSpellSlot,
+  removeSpellSlot,
+  createSpellLevel,
 } from '../../state/CreatureManager';
 import {
   save,
@@ -130,6 +135,11 @@ function DungeonMasterApp({
     toggleCreatureLock: updateBattle(toggleCreatureLock, false),
     toggleCreatureShare: updateBattle(toggleCreatureShare),
     toggleCreatureHitPointsShare: updateBattle(toggleCreatureHitPointsShare),
+    updateCreatureSpells: updateBattle(updateCreatureSpells),
+    resetSpells: updateBattle(resetSpells),
+    addSpellSlot: updateBattle(addSpellSlot),
+    removeSpellSlot: updateBattle(removeSpellSlot),
+    createSpellLevel: updateBattle(createSpellLevel),
   };
 
   const onScrollActiveInitiative = () => {

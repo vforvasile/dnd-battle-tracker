@@ -360,7 +360,7 @@ describe('addCreature', () => {
       ariaAnnouncements: ['creatures added'],
     };
 
-    const newState = addCreature(defaultState, creature);
+    const newState = addCreature(defaultState, { ...creature, syncMultipleInitiatives: true });
 
     expect(newState).toEqual(expectedState);
     expect(createCreature.mock.calls.length).toBe(2);
@@ -437,7 +437,7 @@ describe('addCreature', () => {
       ariaAnnouncements: ['creatures added'],
     };
 
-    const newState = addCreature(initialState, creature);
+    const newState = addCreature(initialState, { ...creature, syncMultipleInitiatives: true });
 
     expect(newState).toEqual(expectedState);
     expect(createCreature.mock.calls.length).toBe(2);

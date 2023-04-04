@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import getSecondsElapsed from './TimeManager';
+import { findAndChangeSpellSlot, sortSpells } from '../util/spells';
 import { allConditions, addCondition, removeCondition } from './ConditionsManager';
 
 function findCreature(creatures, creatureId) {
@@ -28,6 +30,131 @@ export function killCreature(state, creatureId) {
     { alive: false, healthPoints, conditions: newConditions },
     ariaAnnouncement,
   );
+}
+
+export function updateCreatureSpells(state, creatureId, currentSpell) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells changed for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = findAndChangeSpellSlot(spellData.spells, currentSpell);
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
+export function resetSpells(state, creatureId) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells changed for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = spellData.spells.map((spell) => {
+    const slots = spell.slots.map((slot) => ({ ...slot, used: false }));
+    return { ...spell, slots };
+  });
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
+export function addSpellSlot(state, creatureId, spellLevel) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells slot added for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = spellData.spells.map((spell) => {
+    if (spell.level === spellLevel) {
+      const { slots } = spell;
+      return { ...spell, slots: [...slots, { used: false, slotIndex: slots.length + 1 }] };
+    }
+    return spell;
+  });
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
+export function removeSpellSlot(state, creatureId, spellLevel) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spells slot removed for ${creature.name}`;
+  const { spellData } = creature;
+
+  const newSpells = spellData.spells.map((spell) => {
+    if (spell.level === spellLevel) {
+      const { slots } = spell;
+      const updatedSlots = slots.filter((_, index) => slots.length - index !== 1);
+      if (updatedSlots.length === 0) return null;
+      return { ...spell, slots: updatedSlots };
+    }
+    return spell;
+  }).filter((spell) => spell !== null);
+
+  const newData = { ...spellData, spells: newSpells };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+}
+
+export function createSpellLevel(state, creatureId, { level, slotNumber }) {
+  const creature = findCreature(state.creatures, creatureId);
+
+  const ariaAnnouncement = `Spell level added for ${creature.name}`;
+
+  const stringLevel = `${level}`;
+
+  // if the creature doesn't have spell data, create it
+  if (!creature.spellData) {
+    const newData = {
+      // TODO: make this into a function
+      spells: [
+        {
+          slots: Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: index })),
+          count: slotNumber,
+          level: stringLevel,
+          knownSpells: [],
+        },
+      ],
+
+    };
+
+    return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+  }
+  const { spellData } = creature;
+  // update
+  // update slots for existing spell level
+  if (spellData.spells.some((spell) => spell.level === stringLevel)) {
+    const newSpells = spellData.spells.map((spell) => {
+      if (spell.level === stringLevel) {
+        const { slots } = spell;
+        const newSlots = Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: slots.length + index }));
+        const updatedSlots = [...slots, ...newSlots];
+        return { ...spell, slots: updatedSlots };
+      }
+      return spell;
+    }).filter((spell) => spell !== null);
+
+    const newData = { ...spellData, spells: sortSpells(newSpells) };
+
+    return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
+  }
+  // if the creature does have spell data, add the new spell level
+  // TODO: make this into a function
+  const newSpells = [...spellData.spells, {
+    slots: Array.from({ length: slotNumber }, (_, index) => ({ used: false, slotIndex: index })),
+    count: slotNumber,
+    level: stringLevel,
+    knownSpells: [],
+  }];
+
+  const newData = { ...spellData, spells: sortSpells(newSpells) };
+
+  return updateCreature(state, creatureId, { spellData: newData }, ariaAnnouncement);
 }
 
 export function stabalizeCreature(state, creatureId) {
@@ -112,11 +239,10 @@ export function getRawName(name) {
 }
 
 export function createCreature(creatureId, {
-  armorClass, name, number, initiative, healthPoints,apiData,
+  armorClass, name, number, initiative, healthPoints, apiData, spellData,
 }) {
   const groupedName = number ? `${name} #${number}` : name;
-  return {
-    armorClass,
+  const finalCreature = {
     name: groupedName,
     initiative,
     healthPoints,
@@ -129,8 +255,18 @@ export function createCreature(creatureId, {
     locked: false,
     shared: true,
     hitPointsShared: true,
-    apiData
   };
+
+  if (armorClass) {
+    finalCreature.armorClass = armorClass;
+  }
+  if (apiData) {
+    finalCreature.apiData = apiData;
+  }
+  if (spellData) {
+    finalCreature.spellData = spellData;
+  }
+  return finalCreature;
 }
 
 export function validateCreature(name, initiative, healthPoints, multiplier) {

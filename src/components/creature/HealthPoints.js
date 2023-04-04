@@ -9,6 +9,7 @@ function HealthPoints({
   className,
   playerSession,
   armorClass,
+  spellsLeft,
 }) {
   const displayLong = !short && !playerSession;
   const displayTempHp = tempHp !== null && tempHp !== 0;
@@ -56,17 +57,32 @@ function HealthPoints({
       </div>
       )}
 
-      <div className={classes}>
+      <div style={{ marginRight: 15 }} className={classes}>
         {short && `HP ${shortHpDisplay} `}
         {!short && (
           <>
             <b>{hpLabel}</b>
             {' '}
             {longHpDisplay}
+            {' '}
           </>
         )}
       </div>
-
+      {typeof spellsLeft === 'number' && (
+      <div className={classes}>
+        {' '}
+        {' '}
+        {short && `Spells: ${spellsLeft} `}
+        {!short && (
+        <>
+          <b>Spell Slots:</b>
+          {' '}
+          {spellsLeft}
+          {' '}
+        </>
+        )}
+      </div>
+      )}
     </>
   );
 }

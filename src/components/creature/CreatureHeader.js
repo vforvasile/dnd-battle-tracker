@@ -4,6 +4,7 @@ import CreatureLocker from '../buttons/CreatureLocker';
 import MonsterSearcher from '../buttons/MonsterSearcher';
 import CreatureSharer from '../buttons/CreatureSharer';
 import CreatureHitPointsSharer from '../buttons/CreatureHitPointsSharer';
+import CreatureSpellCreator from '../buttons/CreatureSpellCreator';
 
 function getName(expanded, active, name, multiColumn) {
   const maxLength = 22;
@@ -25,11 +26,13 @@ export default function CreatureHeader({
   expandHandler,
   focused,
   multiColumn,
+  onToggleCreateSpell,
 }) {
   const {
     alive, name, hitPointsShared, locked, shared,
   } = creature;
   const expandedOrActive = expanded || active;
+  const [toggledCreateSpell, setToggleCreateSpell] = React.useState(false);
 
   const nameClass = 'creature-name';
   const nameModifier = alive ? '' : 'collapsed-creature--name__dead';
@@ -40,6 +43,11 @@ export default function CreatureHeader({
   const titleClasses = expandedOrActive && multiColumn ? `${titleClass} ${titleClass}__multicolumn` : titleClass;
   const controlsClass = 'creature-header--controls';
   const controlsClasses = expandedOrActive && multiColumn ? `${controlsClass} ${controlsClass}__multicolumn` : controlsClass;
+
+  const toggleCreateSpell = () => {
+    onToggleCreateSpell();
+    setToggleCreateSpell((prev) => !prev);
+  };
 
   const creatureExpander = (
     <CreatureExpander
@@ -77,6 +85,14 @@ export default function CreatureHeader({
     />
   );
 
+  const creatureSpellCreator = !playerSession && (
+    <CreatureSpellCreator
+      toggled={toggledCreateSpell}
+      name={name}
+      onToggleCreateSpell={toggleCreateSpell}
+    />
+  );
+
   const monsterSearcher = !playerSession && (
     <MonsterSearcher
       search={name}
@@ -91,6 +107,7 @@ export default function CreatureHeader({
         {creatureLocker}
         {creatureSharer}
         {creatureHitPointsSharer}
+        {creatureSpellCreator}
       </div>
     </div>
   );
