@@ -5,6 +5,13 @@ export function share(state, createBattle, updateBattle, date) {
   if (!state.shareEnabled) {
     return state;
   }
+  // remove additional data from creatures to fix share battle
+  const newCreatures = state.creatures.map((creature) => {
+    const {
+      spellData, apiData, armorClass, ...rest
+    } = creature;
+    return rest;
+  });
 
   const battleId = state.battleId || nanoid(11);
 
@@ -13,7 +20,7 @@ export function share(state, createBattle, updateBattle, date) {
       battleinput: {
         battleId,
         round: state.round,
-        creatures: state.creatures,
+        creatures: newCreatures,
         activeCreature: state.activeCreature,
         expdate: Math.floor(date.getTime() / 1000.0) + 86400,
       },
