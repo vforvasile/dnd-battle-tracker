@@ -19,8 +19,6 @@ export default function CreatureStats({
   const savingThrows = creature.proficiencies ? creature.proficiencies.filter((ability) => ability.proficiency?.index.includes('saving-throw')) : [];
   const skills = creature.proficiencies ? creature.proficiencies.filter((ability) => ability.proficiency?.index.includes('skill')) : [];
 
-  console.log(`creature ${creature.name}`, creature);
-
   const toggleCreatureStats = () => {
     setCreatureStats((prevValue) => !prevValue);
   };

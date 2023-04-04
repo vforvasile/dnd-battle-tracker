@@ -39,7 +39,7 @@ class CreatureWrapper extends Component {
     super(props);
 
     this.state = {
-      expanded: true,
+      expanded: false,
       showSpellCreator: false,
     };
 
@@ -184,8 +184,6 @@ class CreatureWrapper extends Component {
       leftPercentage,
       rightPercentage,
     ] = getHitPointsBar(creatureHealthPoints, maxHealthPoints, alive, showHitPoints);
-
-    console.log('current creature state', creature, showSpellCreator);
 
     return (
       <>

@@ -242,8 +242,7 @@ export function createCreature(creatureId, {
   armorClass, name, number, initiative, healthPoints, apiData, spellData,
 }) {
   const groupedName = number ? `${name} #${number}` : name;
-  return {
-    armorClass,
+  const finalCreature = {
     name: groupedName,
     initiative,
     healthPoints,
@@ -256,9 +255,18 @@ export function createCreature(creatureId, {
     locked: false,
     shared: true,
     hitPointsShared: true,
-    apiData,
-    spellData,
   };
+
+  if (armorClass) {
+    finalCreature.armorClass = armorClass;
+  }
+  if (apiData) {
+    finalCreature.apiData = apiData;
+  }
+  if (spellData) {
+    finalCreature.spellData = spellData;
+  }
+  return finalCreature;
 }
 
 export function validateCreature(name, initiative, healthPoints, multiplier) {

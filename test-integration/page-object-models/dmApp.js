@@ -32,7 +32,6 @@ export default class DmApp extends DndBattleTracker {
 
   async addCreature(name, initiative, hp, multiply) {
     await this.enterCreatureName(name);
-
     if (initiative) {
       const initiativeField = await screen.findByText('Initiative (optional)');
       await this.user.type(initiativeField, initiative);
