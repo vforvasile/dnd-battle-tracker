@@ -3,19 +3,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import SpellModal from './SpellModal';
+import { KnownSpell } from './types';
+
+type Props =  {knownSpells: KnownSpell[]}
 
 export default function SpellList({
   knownSpells,
-}) {
+}:Props) {
   const [visible, setVisible] = React.useState(false);
-  const [spell, setSpell] = React.useState(null);
+  const [spell, setSpell] = React.useState<KnownSpell | null>(null);
 
   const onClose = () => {
     setVisible(false);
     setSpell(null);
   };
 
-  const onOpenSpell = (currentSpell) => {
+  const onOpenSpell = (currentSpell: KnownSpell) => {
     setVisible(true);
     setSpell(currentSpell);
   };
