@@ -4,8 +4,21 @@
 import React, { useState } from 'react';
 import { capitalizeWord } from '../../../util/characterSheet';
 import Checkbox from '../../buttons/CheckBox';
+import { CreatureType } from '../../types/creature';
+import { SpellSlotType } from './types';
 
-const slotsExpired = (slots) => slots.every((slot) => slot.used);
+const slotsExpired = (slots: SpellSlotType[]) => slots.every((slot) => slot.used);
+
+type Props = {
+  creature: CreatureType;
+  active: boolean;
+  updateCreatureSpells: (id: number, data: {
+    level:string; slotIndex: number; value: boolean; 
+  }) => void;
+  addSpellSlot: (id: number, level: string) => void;
+  removeSpellSlot: (id: number, level: string) => void;
+  showSpellCreator: boolean;
+}
 
 export default function SpellCasting({
   creature,
@@ -14,15 +27,15 @@ export default function SpellCasting({
   addSpellSlot,
   removeSpellSlot,
   showSpellCreator,
-}) {
+}:Props) {
   const { spellData } = creature;
 
-  const [showSpells, setShowSpells] = useState(active || showSpellCreator);
+  const [showSpells, setShowSpells] = useState<boolean>(active || showSpellCreator);
 
   const [isHovering, setIsHovering] = useState(false);
   const [hoverLevel, setLevel] = useState('');
 
-  const handleMouseOver = (level) => {
+  const handleMouseOver = (level: string) => {
     setLevel(level);
     setIsHovering(true);
   };
@@ -46,17 +59,18 @@ export default function SpellCasting({
     );
   }
 
-  const onChangeSlot = (event, level, slotIndex) => {
+  const onChangeSlot = (event: React.ChangeEvent<HTMLInputElement>, level:string, slotIndex:number) => {
+    event.preventDefault();
     const { checked } = event.target;
     updateCreatureSpells(creature.id, { level, slotIndex, value: checked });
   };
 
-  const onAddSpellSlot = (level) => {
+  const onAddSpellSlot = (level:string) => {
     addSpellSlot(creature.id, level);
     handleMouseOver(level);
   };
 
-  const onRemoveSpellSlot = (level) => {
+  const onRemoveSpellSlot = (level:string) => {
     removeSpellSlot(creature.id, level);
     handleMouseOver(level);
   };

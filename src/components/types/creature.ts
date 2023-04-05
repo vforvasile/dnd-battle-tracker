@@ -1,3 +1,5 @@
+import { SpellData } from "../creature/spells/types";
+
 export interface Action {
   name: string;
   desc: string;
@@ -149,7 +151,7 @@ export type LegendaryActionType = {
 };
 
 // generated type, could be incomplete
-export type CreatureType = {
+export type ApiCreatureInfo = {
   index: string;
   name: string;
   desc: string;
@@ -189,3 +191,21 @@ export type CreatureType = {
   damage_resistances: [string];
   damage_vulnerabilities: [string];
 };
+
+// needs checking if it's complete
+export type CreatureType = {
+  name: string;
+  id: number;
+  alive: boolean;
+  conditions: string[];
+  notes: string[];
+  locked: boolean;
+  shared: boolean;
+  hitPointsShared: boolean;
+  temporaryHealthPoints?: number;
+  initiative?: number;
+  // added on top of original data
+  armorClass?: number;
+  apiData?: ApiCreatureInfo;
+  spellData?: SpellData;
+}
