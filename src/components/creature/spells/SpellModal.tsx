@@ -63,8 +63,8 @@ export default function SpellModal({
     return (
       <div className="spell-modal-box">
         <div className="spell-modal-header">
-          <div className={`spell-modal-icon ${spellIconBackground(spellInfo.school.name)}`}>
-            {spellIcon(spellInfo.school.name)}
+          <div className={`spell-modal-icon ${spellIconBackground(spellInfo.school.index)}`}>
+            {spellIcon(spellInfo.school.index)}
           </div>
           <div className="spell-modal-header-title">
             {spellInfo.name}

@@ -7,6 +7,7 @@ import Evocation from '../../icons/spells/Evocation';
 import Illusion from '../../icons/spells/Illusion';
 import Necromancy from '../../icons/spells/Necromancy';
 import Transmutation from '../../icons/spells/Transmutation';
+import { SchoolSpellType } from './types';
 
 export const spellModalStyle = {
   content: {
@@ -41,9 +42,9 @@ export const spellModalStyleMobile = {
   },
 };
 
-export const spellIconBackground = (school) => {
-  const loweredSchool = school.toLowerCase();
-  switch (loweredSchool) {
+export const spellIconBackground = (school: SchoolSpellType) => {
+
+  switch (school) {
     case 'abjuration':
       return 'abjuration-background';
     case 'conjuration':
@@ -65,7 +66,7 @@ export const spellIconBackground = (school) => {
   }
 };
 
-export const spellIcon = (school) => {
+export const spellIcon = (school: SchoolSpellType) => {
   const loweredSchool = school.toLowerCase();
   switch (loweredSchool) {
     case 'abjuration':

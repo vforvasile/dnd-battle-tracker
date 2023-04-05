@@ -4,8 +4,10 @@ export type KnownSpell = {
   url: string;
 };
 
+export type SchoolSpellType = 'evocation'| 'abjuration' | 'conjuration' | 'divination' | 'enchantment' | 'illusion' | 'necromancy' | 'transmutation';
+
 export type School = {
-  index: string;
+  index: SchoolSpellType;
   name: string;
   url: string;
 };
