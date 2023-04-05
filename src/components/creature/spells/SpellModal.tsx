@@ -8,24 +8,31 @@ import DescriptionHighlight from '../DescriptionHighlight';
 import {
   spellIcon, spellIconBackground, spellModalStyle, spellModalStyleMobile, spellModalStyleWeb,
 } from './utils';
+import { ApiSpell, KnownSpell } from './types';
 
 const BASE_API_URL = 'https://www.dnd5eapi.co';
+
+type Props = {
+  currentSpell: KnownSpell;
+  visible: boolean;
+  onClose: () => void;
+}
 
 export default function SpellModal({
   currentSpell,
   visible,
   onClose,
-}) {
+}:Props) {
   const [loading, setLoading] = React.useState(false);
-  const [spellInfo, setSpellInfo] = React.useState(null);
+  const [spellInfo, setSpellInfo] = React.useState<ApiSpell | null> (null);
 
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${BASE_API_URL}${currentSpell.url}`, { 'Content-Type': 'application/json' })
+    fetch(`${BASE_API_URL}${currentSpell.url}`)
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: ApiSpell) => {
         setSpellInfo(data);
       })
       .catch((error) => {
@@ -46,14 +53,13 @@ export default function SpellModal({
             width="80"
             color="#822000"
             ariaLabel="triangle-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
             visible
           />
         </div>
       );
     }
     if (!loading && !spellInfo) return <p>Spell not found</p>; // add fallback;
+    if(!spellInfo)return null;
     return (
       <div className="spell-modal-box">
         <div className="spell-modal-header">
@@ -151,12 +157,11 @@ export default function SpellModal({
   console.log('spellInfo', spellInfo);
   return (
     <Modal
-      // eslint-disable-next-line max-len
       style={{ content: { ...spellModalStyle.content, ...(isTabletOrMobile ? spellModalStyleMobile.content : spellModalStyleWeb.content) } }}
       isOpen={visible}
       contentLabel="Minimal Modal Example"
       onRequestClose={onClose}
-      appElement={document.getElementById('app')}
+      appElement={document.getElementById('app')?? undefined}
     >
       {renderSpellInfo()}
     </Modal>

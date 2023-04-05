@@ -20,7 +20,7 @@ export const spellModalStyle = {
     backgroundColor: '#FDF1DC',
     borderRadius: '20px',
     boxShadow: '0px 1px 18px -4px rgba(117,74,50,0.98)',
-    WebkitOverflowScrolling: 'touch',
+    // WebkitOverflowScrolling: 'touch',
     overflowScrolling: 'touch',
     '-webkit-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
     '-moz-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
