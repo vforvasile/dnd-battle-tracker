@@ -81,7 +81,7 @@ export default function ExpandedCreature({
       />
       {creature.apiData && (
       <CreatureStats
-        creature={creature.apiData}
+        creatureData={creature.apiData}
         active={active}
       />
       )}

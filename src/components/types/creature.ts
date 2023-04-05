@@ -32,6 +32,10 @@ export interface Proficiency {
 
 export interface Senses {
   passive_perception: number;
+  blindsight: string
+  darkvision: string
+  tremorsense: string
+  truesight: string
 }
 
 export interface SpecialAbility {
@@ -190,6 +194,8 @@ export type ApiCreatureInfo = {
   damage_immunities: [string];
   damage_resistances: [string];
   damage_vulnerabilities: [string];
+  // formatted spells
+  spellData: SpellData;
 };
 
 // needs checking if it's complete
