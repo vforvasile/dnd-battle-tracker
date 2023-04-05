@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RulesSearchMenuIcon({ opened }) {
+function RulesSearchMenuIcon({ opened }: { opened: boolean }) {
   const fillOpacity = opened ? '1' : '0';
   const strokeOpacity = opened ? '0' : '1';
   return (

@@ -132,16 +132,21 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
         const dexterityModifier = data.dexterity ? calculateAbilityModifier(data.dexterity) : 0;
         const rolledNumber = rollDice(20);
         const calculatedInitiative = `${rolledNumber + dexterityModifier}`;
+
+        const spellData = data.special_abilities.find((ability) => ability.name === 'Spellcasting');
+
+        const creatureSpellData = spellData?.spellcasting ? getCreatureSpellData(spellData.spellcasting) : undefined;
+
         setState((prevState) => ({
           ...prevState,
           initiative: state.initiative.length > 0 ? state.initiative : calculatedInitiative,
           name: monster.name,
           healthPoints: data.hit_points,
           armorClass: getArmorClass(data.armor_class),
-          spellData: getCreatureSpellData(data.special_abilities),
+          spellData: creatureSpellData,
           apiData: {
             ...data,
-            spellData: getCreatureSpellData(data.special_abilities),
+            spellData: creatureSpellData
           },
         }));
       })

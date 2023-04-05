@@ -7,6 +7,7 @@ import Evocation from '../../icons/spells/Evocation';
 import Illusion from '../../icons/spells/Illusion';
 import Necromancy from '../../icons/spells/Necromancy';
 import Transmutation from '../../icons/spells/Transmutation';
+import { SchoolSpellType } from './types';
 
 export const spellModalStyle = {
   content: {
@@ -20,7 +21,7 @@ export const spellModalStyle = {
     backgroundColor: '#FDF1DC',
     borderRadius: '20px',
     boxShadow: '0px 1px 18px -4px rgba(117,74,50,0.98)',
-    WebkitOverflowScrolling: 'touch',
+    // WebkitOverflowScrolling: 'touch',
     overflowScrolling: 'touch',
     '-webkit-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
     '-moz-box-shadow': '0px 1px 18px -4px rgba(117,74,50,0.98)',
@@ -41,9 +42,21 @@ export const spellModalStyleMobile = {
   },
 };
 
-export const spellIconBackground = (school) => {
-  const loweredSchool = school.toLowerCase();
-  switch (loweredSchool) {
+export const getSpellLevelPrefix = (level: string) => {
+  switch (level) {
+    case '1':
+      return 'st';
+    case '2':
+      return 'nd';
+    case '3':
+      return 'rd';
+    default:
+      return 'th';
+  }
+};
+
+export const spellIconBackground = (school: SchoolSpellType) => {
+  switch (school) {
     case 'abjuration':
       return 'abjuration-background';
     case 'conjuration':
@@ -65,7 +78,7 @@ export const spellIconBackground = (school) => {
   }
 };
 
-export const spellIcon = (school) => {
+export const spellIcon = (school: SchoolSpellType) => {
   const loweredSchool = school.toLowerCase();
   switch (loweredSchool) {
     case 'abjuration':

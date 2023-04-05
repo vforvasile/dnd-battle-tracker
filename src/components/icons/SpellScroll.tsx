@@ -1,6 +1,6 @@
 import React from 'react';
 // https://game-icons.net/1x1/delapouite/scroll-quill.html
-function SpellScrollIcon({ enabled }) {
+function SpellScrollIcon({ enabled }: { enabled: boolean }) {
   const fill = enabled ? '#fff' : '#822000';
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ height: '70px', width: '70px' }}>

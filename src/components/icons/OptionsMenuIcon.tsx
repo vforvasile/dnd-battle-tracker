@@ -1,7 +1,7 @@
 import React from 'react';
 
-function OptionsMenuIcon({ open }) {
-  const transform = open ? 'rotate(90deg)' : null;
+function OptionsMenuIcon({ open }: { open: boolean }) {
+  const transform = open ? 'rotate(90deg)' : undefined;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ height: '28px', width: '28px', transform }}>
       <path d="M0 0h512v512H0z" fill="transparent" fillOpacity="0" />

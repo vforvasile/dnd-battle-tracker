@@ -1,34 +1,37 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    'jest/globals': true,
-  },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+},
+"extends": [
+    "react-app",
+    "react-app/jest",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended"
+],
+"parser": "@typescript-eslint/parser",
+"parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true
     },
-    ecmaVersion: 12,
-    sourceType: 'module',
-  },
-  plugins: [
-    'react',
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+},
+"plugins": [
+    "react",
     'jest',
-  ],
-  rules: {
-    'react/prop-types': 'off',
-    'react/jsx-filename-extension': 'off',
-    'no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        ignoreRestSiblings: true,
-      },
-    ],
-  },
+    "@typescript-eslint",
+    "prettier"
+    
+],
+"rules": {
+    "react/react-in-jsx-scope": ["off"],
+    "react/jsx-uses-react": ["off"],
+    "react/jsx-props-no-spreading": ["warn"],
+    "react/no-unescaped-entities": ["off"]
+}
 };
