@@ -4,7 +4,15 @@ export type KnownSpell = {
   url: string;
 };
 
-export type SchoolSpellType = 'evocation'| 'abjuration' | 'conjuration' | 'divination' | 'enchantment' | 'illusion' | 'necromancy' | 'transmutation';
+export type SchoolSpellType =
+  | "evocation"
+  | "abjuration"
+  | "conjuration"
+  | "divination"
+  | "enchantment"
+  | "illusion"
+  | "necromancy"
+  | "transmutation";
 
 export type School = {
   index: SchoolSpellType;
@@ -48,4 +56,25 @@ export type ApiSpell = {
   school: School;
   subclasses: School[];
   area_of_effect: AreaOfEffect;
+};
+
+export type SpellSlotType = {
+  slotIndex: number;
+  used: boolean;
+};
+
+export type CreatureSpellType = {
+  slots: SpellSlotType[];
+  knownSpells: KnownSpell[];
+  level: string;
+  count: number;
+};
+
+export type SpellData = {
+  saveDC: number;
+  modifier: number;
+  level: number;
+  school: string;
+  ability: string;
+  spells: CreatureSpellType[];
 };

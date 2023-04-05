@@ -1,24 +1,18 @@
 import React from 'react';
 import DescriptionHighlight from '../DescriptionHighlight';
 import SpellList from './SpellList';
+import { SpellData } from './types';
+import { getSpellLevelPrefix } from './utils';
 
-const getLevelPrefix = (level) => {
-  switch (level) {
-    case '1':
-      return 'st';
-    case '2':
-      return 'nd';
-    case '3':
-      return 'rd';
-    default:
-      return 'th';
-  }
-};
+type Props = {
+  description: string;
+  spellData: SpellData;
+}
 
 export default function SpellStat({
   description,
   spellData,
-}) {
+}:Props) {
   if (!spellData) {
     return (
       <div className="property-block">
@@ -66,7 +60,7 @@ export default function SpellStat({
       <br />
       <p id="spell-level-text">
         {spellData.spells.map((spellThread) => {
-          const levelName = spellThread.level === '0' ? 'Cantrips' : ` ${spellThread.level}${getLevelPrefix(spellThread.level)} level`;
+          const levelName = spellThread.level === '0' ? 'Cantrips' : ` ${spellThread.level}${getSpellLevelPrefix(spellThread.level)} level`;
           const suffix = spellThread.level === '0' ? '(at will):' : `(${spellThread.slots.length} slots):`;
           return (
             <span key={`Level-${spellThread.level}`}>
@@ -81,7 +75,6 @@ export default function SpellStat({
                 knownSpells={spellThread.knownSpells}
               />
               )}
-
               <br />
             </span>
 

@@ -42,8 +42,20 @@ export const spellModalStyleMobile = {
   },
 };
 
-export const spellIconBackground = (school: SchoolSpellType) => {
+export const getSpellLevelPrefix = (level: string) => {
+  switch (level) {
+    case '1':
+      return 'st';
+    case '2':
+      return 'nd';
+    case '3':
+      return 'rd';
+    default:
+      return 'th';
+  }
+};
 
+export const spellIconBackground = (school: SchoolSpellType) => {
   switch (school) {
     case 'abjuration':
       return 'abjuration-background';
