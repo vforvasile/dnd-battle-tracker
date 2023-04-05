@@ -1,15 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
-import SpellModal from './SpellModal';
-import { KnownSpell } from './types';
+import React from "react";
+import SpellModal from "./SpellModal";
+import { KnownSpell } from "./types";
 
-type Props =  {knownSpells: KnownSpell[]}
+type Props = { knownSpells: KnownSpell[] };
 
-export default function SpellList({
-  knownSpells,
-}:Props) {
+export default function SpellList({ knownSpells }: Props) {
   const [visible, setVisible] = React.useState(false);
   const [spell, setSpell] = React.useState<KnownSpell | null>(null);
 
@@ -26,11 +21,7 @@ export default function SpellList({
   const renderModal = () => {
     if (!spell) return null;
     return (
-      <SpellModal
-        currentSpell={spell}
-        visible={visible}
-        onClose={onClose}
-      />
+      <SpellModal currentSpell={spell} visible={visible} onClose={onClose} />
     );
   };
 
@@ -40,12 +31,10 @@ export default function SpellList({
       {knownSpells.map((item, index) => (
         <span key={item.name}>
           <a className="spell-anchor" onClick={() => onOpenSpell(item)}>
-            <span className="spell-text">
-              {item.name}
-            </span>
+            <span className="spell-text">{item.name}</span>
           </a>
 
-          {knownSpells.length - index !== 1 && <span>{', '}</span>}
+          {knownSpells.length - index !== 1 && <span>{", "}</span>}
         </span>
       ))}
     </>

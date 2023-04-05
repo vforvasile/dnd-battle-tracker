@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ShareHitPointsIcon({ enabled }) {
+function ShareHitPointsIcon({ enabled }: { enabled: boolean }) {
   const fillOpacity = enabled ? '1' : '0';
   const shareStroke = enabled ? '#EBE1AD' : '#822000';
   const shareStrokeWidth = enabled ? '10' : '20';

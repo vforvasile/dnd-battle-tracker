@@ -1,6 +1,6 @@
 import React from 'react';
 
-function KillStabalizeIcon({ alive }) {
+function KillStabalizeIcon({ alive }: { alive: boolean }) {
   const fillOpacity = alive ? '0' : '1';
   const strokeOpacity = alive ? '1' : '0';
   return (

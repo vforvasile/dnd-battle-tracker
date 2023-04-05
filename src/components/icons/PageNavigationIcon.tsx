@@ -1,7 +1,7 @@
 import React from 'react';
 
-function PageNavigationIcon({ previous }) {
-  const transform = previous ? 'rotate(180deg)' : null;
+function PageNavigationIcon({ previous }: { previous: boolean }) {
+  const transform = previous ? 'rotate(180deg)' : undefined;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ height: '28px', width: '28px', transform }}>
       <path d="M0 0h512v512H0z" fill="#000000" fillOpacity="0.01" />

@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SaveLoadIcon({ load }) {
-  const transform = load ? 'rotate(180deg)' : null;
+function SaveLoadIcon({ load }: { load: boolean }) {
+  const transform = load ? 'rotate(180deg)' : undefined;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style={{ height: '28px', width: '28px', transform }}>
       <path d="M0 0h512v512H0z" fill="transparent" fillOpacity="0" />
