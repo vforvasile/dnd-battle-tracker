@@ -1,18 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import ExternalLink from './ExternalLink';
+import React, { useEffect, useState } from "react";
+import ExternalLink from "./ExternalLink";
 
-function ErrorSubTitle() {
-  return 'Something went wrong!';
+function getErrorSubtitle() {
+  return "Something went wrong!";
 }
 
-function PlayerSessionSubTitle({ loading, battleId }) {
+type PlayerProps = {
+  loading: boolean;
+  battleId: string;
+};
+
+type SubTitleProps = {
+  error: boolean;
+  playerSession: boolean;
+  loading: boolean;
+  battleId: string;
+};
+
+type TitleProps = {
+  shareEnabled: boolean;
+  battleId: string;
+  playerSession: boolean;
+  error: boolean;
+  loading: boolean;
+};
+
+type DungeonMasterProps = {
+  battleId: string;
+};
+
+function getPlayerSessionTitle({ loading, battleId }: PlayerProps) {
   return loading
     ? `Loading player Session ${battleId} ...`
     : `Player Session ${battleId}`;
 }
 
-function DungeonMasterSubTitle({ battleId }) {
-  const [playerLink, setPlayerLink] = useState({ url: null, copied: false });
+function DungeonMasterSubTitle({ battleId }: DungeonMasterProps) {
+  const [playerLink, setPlayerLink] = useState({ url: '', copied: false });
 
   useEffect(() => {
     if (battleId) {
@@ -33,48 +57,47 @@ function DungeonMasterSubTitle({ battleId }) {
   const { url, copied } = playerLink;
 
   if (!battleId || !url) {
-    return (<>. . .</>);
+    return <>. . .</>;
   }
 
   return (
     <ExternalLink url={url}>
       Player session
       {` ${battleId}`}
-      { copied && ' (link copied)'}
+      {copied && " (link copied)"}
     </ExternalLink>
   );
 }
 
-function SubTitle({
-  error,
-  playerSession,
-  loading,
-  battleId,
-}) {
+function SubTitle({ error, playerSession, loading, battleId }: SubTitleProps) {
   if (error) {
-    return (<ErrorSubTitle />);
+    return <>{getErrorSubtitle()}</>;
   }
 
   if (playerSession) {
-    return (<PlayerSessionSubTitle loading={loading} battleId={battleId} />);
+    return <>{getPlayerSessionTitle({ loading, battleId })}</>;
   }
 
-  return (<DungeonMasterSubTitle battleId={battleId} />);
+  return <DungeonMasterSubTitle battleId={battleId} />;
 }
 
 export default function Title({
-  shareEnabled, battleId, playerSession, error, loading,
-}) {
+  shareEnabled,
+  battleId,
+  playerSession,
+  error,
+  loading,
+}: TitleProps) {
   const showSubtitle = error || shareEnabled || playerSession;
 
-  const titleClasses = `main-title ${showSubtitle ? 'main-title__short' : ''}`;
+  const titleClasses = `main-title ${showSubtitle ? "main-title__short" : ""}`;
 
   return (
     <>
       <h1 className={titleClasses}>
         <ExternalLink url="/">D&D Battle Tracker</ExternalLink>
       </h1>
-      { showSubtitle && (
+      {showSubtitle && (
         <h2 className="sub-title">
           <SubTitle
             error={error}
