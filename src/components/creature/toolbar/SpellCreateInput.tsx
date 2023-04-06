@@ -5,7 +5,7 @@ import CrossIcon from '../../icons/CrossIcon';
 type Props = {
   id: number;
   spellLevel: number;
-  addSpellSlots: (id: number, data: {spellLevel: number, slotNumber: number}) => void;
+  addSpellSlots: (id: number, data: {level: number, slotNumber: number}) => void;
 }
 
 export default function SpellCreateInput({
@@ -21,7 +21,7 @@ export default function SpellCreateInput({
       label="Number of slots"
       rightSubmit={(currentNumber) => {
         const slotNumber = typeof currentNumber === 'string' ? parseInt(currentNumber) : currentNumber;
-        addSpellSlots(id, { spellLevel, slotNumber })
+        addSpellSlots(id, { level:spellLevel, slotNumber })
       }}
       rightControls={{
         rightEnabled: true,
