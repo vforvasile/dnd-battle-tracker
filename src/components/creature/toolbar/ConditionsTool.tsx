@@ -1,12 +1,20 @@
-import React from 'react';
+import React from "react";
+
+type Props = {
+  name: string;
+  id: number;
+  conditions: string[];
+  addNoteToCreature: (id: number, note: string, isCondition: boolean) => void;
+};
 
 export default function ConditionsTool({
   name,
   id,
   conditions,
   addNoteToCreature,
-}) {
-  const conditionsClasses = 'form--input creature-toolbar--select creature-toolbar--dropdown';
+}: Props) {
+  const conditionsClasses =
+    "form--input creature-toolbar--select creature-toolbar--dropdown";
   const conditionsId = `conditions-${id}`;
   const enableConditions = conditions.length > 0;
   return (
