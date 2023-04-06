@@ -1,4 +1,5 @@
 import { SpellData } from "../creature/spells/types";
+import { ConditionDataType } from "./conditions";
 
 export interface Action {
   name: string;
@@ -203,7 +204,7 @@ export type CreatureType = {
   name: string;
   id: number;
   alive: boolean;
-  conditions: string[];
+  conditions: ConditionDataType[];
   notes: string[];
   locked: boolean;
   shared: boolean;

@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
 import getSecondsElapsed from './TimeManager';
 import { findAndChangeSpellSlot, sortSpells } from '../util/spells';
-import { allConditions, addCondition, removeCondition } from './ConditionsManager';
+import { addCondition, removeCondition } from './ConditionsManager';
+import { allConditions } from '../components/types/conditions';
 
 function findCreature(creatures, creatureId) {
   return creatures.find(({ id }) => creatureId === id);
