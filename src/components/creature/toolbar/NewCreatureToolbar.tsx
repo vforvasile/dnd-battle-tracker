@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-import OptionsMenuIcon from '../../icons/OptionsMenuIcon';
-import KillStabalizeIcon from '../../icons/KillStabalizeIcon';
-import InitiativeIcon from '../../icons/InitiativeIcon';
-import TempHpIcon from '../../icons/TempHpIcon';
-import AddHpIcon from '../../icons/AddHpIcon';
-import AddNoteIcon from '../../icons/AddNoteIcon';
-import MaxHpIcon from '../../icons/MaxHpIcon';
-import ConditionsIcon from '../../icons/ConditionsIcon';
+import React, { useState } from "react";
+import OptionsMenuIcon from "../../icons/OptionsMenuIcon";
+import KillStabalizeIcon from "../../icons/KillStabalizeIcon";
+import InitiativeIcon from "../../icons/InitiativeIcon";
+import TempHpIcon from "../../icons/TempHpIcon";
+import AddHpIcon from "../../icons/AddHpIcon";
+import AddNoteIcon from "../../icons/AddNoteIcon";
+import MaxHpIcon from "../../icons/MaxHpIcon";
+import ConditionsIcon from "../../icons/ConditionsIcon";
+import { CreatureType } from "../../types/creature";
 
-export default function NewCreatureToolbar({ creature }) {
+type Props = {
+  creature: CreatureType;
+};
+
+export default function NewCreatureToolbar({ creature }: Props) {
   const [focused, setFocused] = useState(false);
-  const {
-    alive, name,
-  } = creature;
+  const { alive, name } = creature;
 
-  const toolbarClass = 'new-creature-toolbar';
-  const toolbarClasses = focused ? `${toolbarClass} ${toolbarClass}__focused` : toolbarClass;
+  const toolbarClass = "new-creature-toolbar";
+  const toolbarClasses = focused
+    ? `${toolbarClass} ${toolbarClass}__focused`
+    : toolbarClass;
+    
   const buttonClass = `${toolbarClass}-button`;
   const textButtonClass = `${buttonClass} ${buttonClass}__text`;
 
@@ -27,12 +33,8 @@ export default function NewCreatureToolbar({ creature }) {
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
     >
-      <button
-        title="Creature Menu"
-        type="button"
-        className={buttonClass}
-      >
-        <OptionsMenuIcon />
+      <button title="Creature Menu" type="button" className={buttonClass}>
+        <OptionsMenuIcon open={false} />
       </button>
       <button
         className={buttonClass}
@@ -41,17 +43,11 @@ export default function NewCreatureToolbar({ creature }) {
       >
         <KillStabalizeIcon alive={alive} />
       </button>
-      <button
-        className={textButtonClass}
-        type="button"
-      >
+      <button className={textButtonClass} type="button">
         <InitiativeIcon />
         Initiative
       </button>
-      <button
-        className={textButtonClass}
-        type="button"
-      >
+      <button className={textButtonClass} type="button">
         <ConditionsIcon />
         Conditions
       </button>
@@ -76,10 +72,7 @@ export default function NewCreatureToolbar({ creature }) {
         <MaxHpIcon />
         Max HP
       </button>
-      <button
-        className={textButtonClass}
-        type="button"
-      >
+      <button className={textButtonClass} type="button">
         <TempHpIcon />
         Temp HP
       </button>
