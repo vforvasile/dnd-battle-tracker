@@ -13,12 +13,12 @@ export type RightControlType = {
 
 export type InputProps = {
   label: string;
-  name: string;
   value: string;
   inputId: string;
   submitHandler: (isLeftSubmit: boolean) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formHandler: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  name?: string;
   rightControls?: RightControlType;
   leftControls?: LeftControlType;
   role?: string;

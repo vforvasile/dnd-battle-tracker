@@ -4,6 +4,16 @@ import HealIcon from '../../icons/HealIcon';
 import DamageIcon from '../../icons/DamageIcon';
 import { hotkeys } from '../../../hotkeys/hotkeys';
 
+type Props = {
+  name: string;
+  id: number;
+  healthPoints: number;
+  maxHealthPoints: number;
+  temporaryHealthPoints: number;
+  damageCreature: (id: number, damage: string | number) => void;
+  healCreature: (id: number, health: string | number) => void;
+}
+
 export default function HealthPointsTool({
   name,
   id,
@@ -12,7 +22,7 @@ export default function HealthPointsTool({
   temporaryHealthPoints,
   damageCreature,
   healCreature,
-}) {
+}:Props) {
   const enableHealthTool = healthPoints !== undefined;
   const enableDamage = healthPoints > 0 || temporaryHealthPoints > 0;
   const enableHeal = healthPoints < maxHealthPoints;
@@ -21,7 +31,6 @@ export default function HealthPointsTool({
     <CreatureToolbarInput
       integer
       min={1}
-      enabled={enableDamage}
       ariaLabel={`damage or heal ${name}`}
       label="Damage/Heal"
       leftSubmit={(damage) => damageCreature(id, damage)}

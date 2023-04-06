@@ -5,12 +5,12 @@ import { LeftControlType, RightControlType } from "../../types/input";
 
 type Props = {
   integer: boolean;
-  min: number;
-  name: string;
-  ariaLabel: string;
   label: string;
   inputId: string;
   rightControls: RightControlType;
+  min?: number;
+  ariaLabel?: string;
+  name?: string;
   customClasses?: string;
   rightSubmit: (value: string | number) => void;
   leftHotkey?: string;
