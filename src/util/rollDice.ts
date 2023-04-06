@@ -1,4 +1,4 @@
-function rollDice(diceType = 20) {
+function rollDice(diceType:number = 20) {
   return Math.floor(Math.random() * diceType) + 1;
 }
 
