@@ -4,7 +4,11 @@ import Shortcuts from './Shortcuts';
 import Info from './Info';
 import DmTips from './DmTips';
 
-export default function Help({ playerSession }) {
+type Props = {
+  playerSession: boolean;
+}
+
+export default function Help({ playerSession }:Props) {
   return (
     <dl>
       {!playerSession

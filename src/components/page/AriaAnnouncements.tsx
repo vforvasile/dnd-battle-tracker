@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function AriaAnnouncements({ announcements }) {
+type Props = {
+  announcements: string;
+}
+
+export default function AriaAnnouncements({ announcements }:Props) {
   return (
     <div className="aria-announcements" role="status">
       {announcements}

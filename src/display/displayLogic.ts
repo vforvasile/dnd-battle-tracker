@@ -1,27 +1,32 @@
-export function getDamageLevel(hp, maxHp) {
+export function getDamageLevel(hp: number, maxHp: number) {
   const injuredLevel = maxHp / 2;
   const badlyInjuredLevel = maxHp / 4;
 
   if (hp === 0) {
-    return { level: 'injured', display: '0' };
+    return { level: "injured", display: "0" };
   }
 
   if (hp < badlyInjuredLevel) {
-    return { level: 'injured', display: 'Badly injured' };
+    return { level: "injured", display: "Badly injured" };
   }
 
   if (hp < injuredLevel) {
-    return { level: 'injured', display: 'Injured' };
+    return { level: "injured", display: "Injured" };
   }
 
   if (hp < maxHp) {
-    return { level: 'damaged', display: 'Damaged' };
+    return { level: "damaged", display: "Damaged" };
   }
 
-  return { level: 'fine', display: 'Fine' };
+  return { level: "fine", display: "Fine" };
 }
 
-export function getHitPointsBar(hitPoints, maxHitPoints, alive, showHitPoints) {
+export function getHitPointsBar(
+  hitPoints: number,
+  maxHitPoints: number,
+  alive: boolean,
+  showHitPoints: boolean,
+) {
   if (!alive) {
     return [0, 0];
   }
@@ -39,11 +44,16 @@ export function getHitPointsBar(hitPoints, maxHitPoints, alive, showHitPoints) {
   }
 
   const hitPointsPercentage = Math.ceil((hitPoints / maxHitPoints) * 100);
-  const rightPercentage = hitPointsPercentage < 85 ? hitPointsPercentage + 15 : 100;
+  const rightPercentage =
+    hitPointsPercentage < 85 ? hitPointsPercentage + 15 : 100;
   return [hitPointsPercentage, rightPercentage];
 }
 
-export function shouldShowHitPoints(hitPoints, hitPointsShared, playerSession) {
+export function shouldShowHitPoints(
+  hitPoints: number,
+  hitPointsShared: boolean,
+  playerSession: boolean,
+) {
   if (hitPoints === undefined || hitPoints === null) return false;
   if (!playerSession) return true;
   return hitPointsShared;

@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 
+type Props = {
+  id: string;
+  name: string;
+  children: React.ReactNode;
+}
+
 export default function Disclosure({
   id,
   name,
   children,
-}) {
+}:Props) {
   const [expanded, setExpanded] = useState(false);
   const display = expanded ? 'block' : 'none';
 
@@ -12,7 +18,7 @@ export default function Disclosure({
     setExpanded(!expanded);
   };
 
-  const iconStyle = {
+  const iconStyle: React.CSSProperties = {
     transform: expanded ? 'rotate(0deg) translate(0, -2px)' : 'rotate(-90deg) translate(0, -2px)',
     color: '#822000',
     forcedColorAdjust: 'auto',
