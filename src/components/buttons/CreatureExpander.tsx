@@ -1,12 +1,22 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { ButtonHTMLAttributes, useLayoutEffect, useRef } from 'react';
 import ExpandIcon from '../icons/ExpandIcon';
 import CollapseIcon from '../icons/CollapseIcon';
 import ActiveCreatureIcon from '../icons/ActiveCreatureIcon';
 
+type Props = {
+  classes: string;
+  active: boolean;
+  expanded: boolean;
+  name: string;
+  expandHandler: () => void;
+  focused: boolean;
+}
+
 function CreatureExpander({
   classes, active, expanded, name, expandHandler, focused,
-}) {
+}:Props) {
   const buttonRef = useRef(null);
+
   const buttonTitle = expanded ? 'Collapse creature' : 'Expand creature';
   const buttonIcon = expanded ? <CollapseIcon /> : <ExpandIcon />;
   const buttonAriaLabel = expanded ? `collapse ${name}` : `expand ${name}`;
@@ -17,7 +27,9 @@ function CreatureExpander({
 
   useLayoutEffect(() => {
     if (focused) {
-      buttonRef.current.focus();
+      // NOTE: hack to get around TS error, still uncertain why this is needed
+      // @ts-ignore
+      buttonRef?.current?.focus?.();
     }
   }, [focused]);
 

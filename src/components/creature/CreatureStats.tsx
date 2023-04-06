@@ -175,11 +175,6 @@ export default function CreatureStats({ creatureData, active }: Props) {
                 <ExternalLink
                   key={data.index}
                   url={`https://www.dndbeyond.com/sources/basic-rules/appendix-a-conditions#${data.name}`}
-                  className=""
-                  title=""
-                  ariaLabel=""
-                  anchorRef=""
-                  onClick={() => {}}
                 >
                   <p>{data.name}, </p>
                 </ExternalLink>

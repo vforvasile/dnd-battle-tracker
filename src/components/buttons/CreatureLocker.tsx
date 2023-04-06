@@ -2,7 +2,13 @@ import React from 'react';
 import LockedIcon from '../icons/LockedIcon';
 import UnlockedIcon from '../icons/UnlockedIcon';
 
-function CreatureLocker({ locked, name, lockHandler }) {
+type Props = {
+  locked: boolean;
+  name: string;
+  lockHandler: () => void;
+}
+
+function CreatureLocker({ locked, name, lockHandler }:Props) {
   const buttonTitle = locked ? 'Creature locked' : 'Creature unlocked';
   const buttonIcon = locked ? <LockedIcon /> : <UnlockedIcon />;
   const buttonAriaLabel = locked ? `${name} locked` : `${name} unlocked`;

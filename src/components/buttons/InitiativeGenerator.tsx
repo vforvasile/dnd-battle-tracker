@@ -1,10 +1,15 @@
 import React from 'react';
 import D20Icon from '../icons/D20Icon';
 
+type Props = {
+  diceRoll: number;
+  onPressDice: () => void;
+}
+
 export default function InitiativeGenerator({
   diceRoll,
   onPressDice,
-}) {
+}:Props) {
   return (
 
     <button
