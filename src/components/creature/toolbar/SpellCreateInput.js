@@ -15,6 +15,7 @@ export default function SpellCreateInput({
       label="Number of slots"
       rightSubmit={(slotNumber) => addSpellSlots(id, { spellLevel, slotNumber })}
       rightControls={{
+        rightEnabled: true,
         rightTitle: 'Add spell slots',
         RightSubmitIcon: <CrossIcon />,
       }}

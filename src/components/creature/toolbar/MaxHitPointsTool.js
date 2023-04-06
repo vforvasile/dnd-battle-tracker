@@ -16,6 +16,7 @@ export default function MaxHitPointsTool({
       label="Max HP"
       rightSubmit={(hitPoints) => addHitPointsToCreature(id, hitPoints)}
       rightControls={{
+        rightEnabled: true,
         rightTitle: 'Add/Edit Max HP',
         RightSubmitIcon: <AddHpIcon />,
       }}

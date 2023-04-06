@@ -222,6 +222,7 @@ function CreateCreatureForm({ createCreatureErrors, createCreature: propsCreateC
         handleChange={handleChange}
         submitHandler={onPressDice}
         rightControls={{
+          rightEnabled: true,
           rightTitle: 'Roll Initiative',
           RightSubmitIcon: <D20Icon />,
         }}

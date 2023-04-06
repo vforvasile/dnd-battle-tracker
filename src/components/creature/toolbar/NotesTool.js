@@ -227,6 +227,7 @@ export default function NotesTool({
         role="combobox"
         label={NotesToolLabel(showNotes, notesAriaLabel, notesDropdownId, toggleExpanded)}
         rightControls={{
+          rightEnabled: true,
           rightTitle,
           RightSubmitIcon,
         }}

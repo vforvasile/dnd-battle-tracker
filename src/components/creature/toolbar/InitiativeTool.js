@@ -16,6 +16,7 @@ export default function InitiativeTool({
       label="Initiative"
       rightSubmit={(initiativeInput) => addInitiativeToCreature(id, initiativeInput)}
       rightControls={{
+        rightEnabled: true,
         rightTitle: 'Initiative',
         RightSubmitIcon: <InitiativeIcon />,
       }}
