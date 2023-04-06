@@ -1,5 +1,5 @@
+import { allConditions } from '../components/types/conditions';
 import {
-  allConditions,
   addCondition,
   removeCondition,
   getAvailableConditions,
