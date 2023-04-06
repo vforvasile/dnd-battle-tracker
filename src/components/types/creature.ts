@@ -1,5 +1,6 @@
 import { SpellData } from "../creature/spells/types";
 import { ConditionDataType } from "./conditions";
+import { NoteDataType } from "./notes";
 
 export interface Action {
   name: string;
@@ -205,7 +206,7 @@ export type CreatureType = {
   id: number;
   alive: boolean;
   conditions: ConditionDataType[];
-  notes: string[];
+  notes: NoteDataType[];
   locked: boolean;
   shared: boolean;
   hitPointsShared: boolean;
