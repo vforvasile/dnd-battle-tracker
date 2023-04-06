@@ -47,3 +47,5 @@ export const DamageTypesObject = {
   slashing: "⚔️",
   thunder: "⛈️",
 };
+
+export type DamageType = keyof typeof DamageTypesObject;

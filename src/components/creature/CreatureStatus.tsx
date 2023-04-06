@@ -1,7 +1,13 @@
 import React from 'react';
 import { isCreatureStable } from '../../state/CreatureManager';
+import { CreatureType } from '../types/creature';
 
-export default function CreatureStatus({ creature, shared }) {
+type Props = {
+  creature: CreatureType;
+  shared: boolean;
+}
+
+export default function CreatureStatus({ creature, shared }:Props) {
   const { alive } = creature;
   const stable = isCreatureStable(creature);
   const dyingMessage = alive ? [] : ['Dying/dead'];
