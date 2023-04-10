@@ -3,29 +3,35 @@ import Input from './Input';
 import ExternalLink from './ExternalLink';
 import RulesSearchIcon from '../icons/RulesSearchIcon';
 
-export default function RulesSearchBar({ rulesSearchOpened, onSearch }) {
+type Props = {
+  rulesSearchOpened: boolean;
+  onSearch: () => void;
+}
+
+export default function RulesSearchBar({ rulesSearchOpened, onSearch }:Props) {
   const [value, setValue] = useState('');
   const [animateNextEntrance, setAnimateNextEntrance] = useState(false);
-  const anchorRef = useRef(null);
-  const inputRef = useRef(null);
+
+  const anchorRef = useRef<HTMLAnchorElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!rulesSearchOpened) {
       setValue('');
       setAnimateNextEntrance(true);
     }
-    if (rulesSearchOpened) inputRef.current.focus();
+    if (rulesSearchOpened) inputRef?.current?.focus();
   }, [rulesSearchOpened]);
 
   const encodedSearch = encodeURIComponent(value);
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
-  const formHandler = (event) => {
+  const formHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
-      anchorRef.current.click();
+      anchorRef?.current?.click();
     }
   };
 
@@ -50,13 +56,14 @@ export default function RulesSearchBar({ rulesSearchOpened, onSearch }) {
         <Input
           ariaLabel="search rules using D&D Beyond"
           label="Search rules using D&D Beyond"
-          rightControls={{ RightControl }}
+          rightControls={{ RightControl, rightTitle: '', RightSubmitIcon: null }}
           inputId="dnd-beyond-search"
           value={value}
           handleChange={handleChange}
           formHandler={formHandler}
           inputRef={inputRef}
           customClasses="dnd-beyond-search"
+          submitHandler={()=> {}}
         />
       </div>
     </aside>

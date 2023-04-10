@@ -15,9 +15,9 @@ export type InputProps = {
   label: string;
   value: string;
   inputId: string;
-  submitHandler: (isLeftSubmit: boolean) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formHandler: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  submitHandler: (isLeftSubmit: boolean) => void;
   name?: string;
   rightControls?: RightControlType;
   leftControls?: LeftControlType;
@@ -28,7 +28,7 @@ export type InputProps = {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   integer?: boolean;
   required?: boolean;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLInputElement> | null;
   ariaAutoComplete?: "none" | "inline" | "list" | "both" | undefined;
   ariaLabel?: string;
   ariaExpanded?: boolean;
