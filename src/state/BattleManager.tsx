@@ -1,11 +1,13 @@
-import { resetCreature } from './CreatureManager';
-import packageJson from '../../package.json';
+import { resetCreature } from "./CreatureManager";
+import packageJson from "../../package.json";
+import { BattleType } from "../components/types/battle";
+import { CreatureType } from "../components/types/creature";
 
-function findCreatureIndex(creatures, creature) {
+function findCreatureIndex(creatures: CreatureType[], creature: CreatureType) {
   return creatures.findIndex(({ id }) => creature.id === id);
 }
 
-export const newBattleState = {
+export const newBattleState: BattleType = {
   creatures: [],
   creatureIdCount: 0,
   activeCreature: null,
@@ -21,7 +23,7 @@ export const newBattleState = {
   rulesSearchOpened: false,
 };
 
-export function nextFocus(state) {
+export function nextFocus(state: BattleType) {
   const { creatures, focusedCreature: currentFocusedCreature } = state;
   const creatureCount = creatures.length;
   if (creatureCount === 0) {
@@ -41,14 +43,17 @@ export function nextFocus(state) {
   return { ...state, focusedCreature };
 }
 
-export function prevFocus(state) {
+export function prevFocus(state: BattleType) {
   const { creatures, focusedCreature: currentFocusedCreature } = state;
   const creatureCount = creatures.length;
   if (creatureCount === 0) {
     return state;
   }
 
-  let focusedCreature = currentFocusedCreature - 1;
+  let focusedCreature =
+    typeof currentFocusedCreature === "number"
+      ? currentFocusedCreature - 1
+      : undefined;
 
   if (currentFocusedCreature === undefined || currentFocusedCreature === 0) {
     focusedCreature = creatureCount - 1;
@@ -57,7 +62,7 @@ export function prevFocus(state) {
   return { ...state, focusedCreature };
 }
 
-export function setFocus(state, creature) {
+export function setFocus(state: BattleType, creature: CreatureType) {
   let focusedCreature = findCreatureIndex(state.creatures, creature);
   if (focusedCreature === -1) {
     focusedCreature = 0;
@@ -65,7 +70,7 @@ export function setFocus(state, creature) {
   return { ...state, focusedCreature };
 }
 
-export function resetBattle(state) {
+export function resetBattle(state: BattleType) {
   const {
     creatures,
     ariaAnnouncements: currentAriaAnnouncements,
@@ -75,8 +80,10 @@ export function resetBattle(state) {
   } = state;
   const lockedCreatures = creatures.filter((creature) => creature.locked);
   const creatureIdCount = lockedCreatures.length;
-  const resetLockedCreatures = lockedCreatures.map((creature, id) => resetCreature(id, creature));
-  const ariaAnnouncements = currentAriaAnnouncements.concat(['battle reset']);
+  const resetLockedCreatures = lockedCreatures.map((creature, id) =>
+    resetCreature(id, creature),
+  );
+  const ariaAnnouncements = currentAriaAnnouncements.concat(["battle reset"]);
   return {
     ...newBattleState,
     battleCreated,
@@ -88,16 +95,19 @@ export function resetBattle(state) {
   };
 }
 
-export function toggleSync(state) {
+export function toggleSync(state: BattleType) {
   const { shareEnabled, ariaAnnouncements: currentAriaAnnouncements } = state;
-  const announcement = shareEnabled ? 'share disabled' : 'share enabled';
+  const announcement = shareEnabled ? "share disabled" : "share enabled";
   const ariaAnnouncements = currentAriaAnnouncements.concat([announcement]);
   return { ...state, shareEnabled: !shareEnabled, ariaAnnouncements };
 }
 
-export function toggleRulesSearch(state) {
-  const { rulesSearchOpened, ariaAnnouncements: currentAriaAnnouncements } = state;
-  const announcement = rulesSearchOpened ? 'rules search closed' : 'rules search opened';
+export function toggleRulesSearch(state: BattleType) {
+  const { rulesSearchOpened, ariaAnnouncements: currentAriaAnnouncements } =
+    state;
+  const announcement = rulesSearchOpened
+    ? "rules search closed"
+    : "rules search opened";
   const ariaAnnouncements = currentAriaAnnouncements.concat([announcement]);
   return { ...state, rulesSearchOpened: !rulesSearchOpened, ariaAnnouncements };
 }
