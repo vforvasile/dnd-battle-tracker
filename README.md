@@ -6,6 +6,58 @@ D&D Battle Tracker is a combat tracker tool for Dungeons & Dragons 5th Edition (
 
 Feature ideas and general feedback welcome on [Ko-fi](https://ko-fi.com/paulbod). Bugs can be reported through [Github issues](https://github.com/Paul-Ladyman/dnd-battle-tracker/issues/new).
 
+\
+&nbsp;
+
+
+## ⚠️ Unstable fork with experimental features
+For a better experience, use the original [repository](https://github.com/Paul-Ladyman/dnd-battle-tracker)!!!
+
+### Experimental features:
+
+Using open API from [https://www.dnd5eapi.co/docs/](https://www.dnd5eapi.co/docs/) 
+
+
+<details><summary>Creature with highlighted stats from **dnd5eapi** </summary> <img width="1126" alt="creature stat preview" src="https://user-images.githubusercontent.com/9382283/230911004-b02e3b94-ac6d-4705-9a7a-00cf904286e0.png">
+</details>
+
+<details><summary>Creature spells preview</summary> <img width="1393" alt="spell preview" src="https://user-images.githubusercontent.com/9382283/230911405-e9f430f4-63bf-43d1-bb61-6addd9f1e967.png">
+</details>
+
+<details><summary> Add/remove/track spell slots to creatures (NPCs, players etc) </summary>
+<video src="https://user-images.githubusercontent.com/9382283/230912338-16d4687b-f290-4fc2-9acc-ca8e7064c2a9.mp4" controls="controls" style="max-width: 730px;">
+</video>
+</details>
+
+<details><summary>Fetch & manage spell slots for API creatures</summary>
+<video src="https://user-images.githubusercontent.com/9382283/230914276-cb16cd37-0f20-42dd-b912-34541734e1d5.mp4" controls="controls" style="max-width: 730px;">
+</video>
+</details>
+
+<details><summary>Auto scroll to active creature</summary>
+<video src="https://user-images.githubusercontent.com/9382283/213410915-7ea240a5-37f5-4793-83f1-131a2eaf3575.mp4" controls="controls" style="max-width: 730px;">
+</video>
+</details>
+
+<details><summary>AC (Armor Class)</summary> 
+<img width="700" alt="Screenshot 2023-04-10 at 16 59 08" src="https://user-images.githubusercontent.com/9382283/230916217-7c1ec233-abe6-4ffb-bac0-421802c3026a.png">
+
+<img width="700" alt="Screenshot 2023-04-10 at 16 59 29" src="https://user-images.githubusercontent.com/9382283/230916226-dfee5f98-d502-41a8-9ff2-bad02cdd61b8.png">
+</details>
+
+
+### Tech note:
+* 🚧 TS coverage (*in progress*)
+
+\
+&nbsp;
+
+
+## README:
+
+<details>
+  <summary>Description</summary>
+  
 ## Use
 
 The D&D Battle Tracker is a web application designed to run in a browser but does not require an internet connection.
@@ -141,3 +193,8 @@ End to end tests:
 
 - The project's dependencies are automatically kept up to date using Dependabot, which creates pull requests for each update
 - Commits to pull requests also trigger the CI step of the pipeline and this step must execute successfully before the PR can be merged
+
+</details>
+
+
+
