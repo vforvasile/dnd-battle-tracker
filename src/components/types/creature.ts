@@ -34,10 +34,10 @@ export interface Proficiency {
 
 export interface Senses {
   passive_perception: number;
-  blindsight: string
-  darkvision: string
-  tremorsense: string
-  truesight: string
+  blindsight: string;
+  darkvision: string;
+  tremorsense: string;
+  truesight: string;
 }
 
 export interface SpecialAbility {
@@ -107,7 +107,7 @@ export type LegendaryActionType = {
     choose: number;
     type: string;
     from: any;
-    };
+  };
   actions: [
     {
       action_name: string;
@@ -120,7 +120,7 @@ export type LegendaryActionType = {
     choose: number;
     type: string;
     from: any;
-    };
+  };
   multiattack_type: string;
   attack_bonus: number;
   dc: {
@@ -218,4 +218,10 @@ export type CreatureType = {
   armorClass?: number;
   apiData?: ApiCreatureInfo;
   spellData?: SpellData;
-}
+};
+
+export type CreatureToAddType = CreatureType & {
+  multiplier?: number;
+  syncMultipleInitiatives?: boolean;
+  number?: number;
+};

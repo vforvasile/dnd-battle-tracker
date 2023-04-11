@@ -16,21 +16,3 @@ export type BattleType = {
   battleId?: string;
 };
 
-type RandomInitiativeParams = {
-    initiative: number;
-    index: number;
-    syncMultipleInitiatives: boolean;
-    apiData?: ApiCreatureInfo;
-  };
-  
-  type CreateCreatureParams = {
-    creatureIdCount: number;
-    creatures: CreatureType[]
-    creature: CreatureType;
-    multiplier: number;
-    name: string;
-    initiative: number;
-    index: number;
-    syncMultipleInitiatives: boolean;
-    apiData?: ApiCreatureInfo;
-  }

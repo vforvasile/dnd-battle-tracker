@@ -381,7 +381,7 @@ export function getRawName(name: string) {
 
 export function createCreature(
   creatureId: number,
-  creature: CreatureType & { number: number },
+  creature: CreatureType & { number?: number },
 ) {
   const {
     armorClass,
@@ -422,14 +422,15 @@ export function createCreature(
 
 export function validateCreature(
   name: string,
-  initiative: number,
-  healthPoints: number,
-  multiplier: number,
+  initiative?: number,
+  healthPoints?: number,
+  multiplier?: number,
 ) {
   const nameError = name === "";
   const initiativeError = initiative !== undefined && Number.isNaN(initiative);
-  const healthError = healthPoints <= 0;
-  const multiplierError = multiplier <= 0 || multiplier > 50;
+  const healthError = isNumber(healthPoints) && healthPoints <= 0;
+  const multiplierError =
+    isNumber(multiplier) && (multiplier <= 0 || multiplier > 50);
 
   if (nameError || initiativeError || healthError || multiplierError) {
     return {
