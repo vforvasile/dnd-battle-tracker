@@ -1,6 +1,7 @@
+import { BattleType } from '../components/types/battle';
 import FileSystem from '../util/fileSystem';
 
-export function save(state) {
+export function save(state:BattleType) {
   const {
     ariaAnnouncements, errors, createCreatureErrors, ...stateToSave
   } = state;
@@ -19,7 +20,7 @@ export function save(state) {
   };
 }
 
-function jsonParse(value) {
+function jsonParse(value:string) {
   try {
     return JSON.parse(value);
   } catch {
@@ -27,13 +28,13 @@ function jsonParse(value) {
   }
 }
 
-function versionCompatibility(version, loadedVersion) {
+function versionCompatibility(version:string, loadedVersion:string) {
   const majorVersion = version.split('.')[0];
   const loadedMajorVersion = loadedVersion && loadedVersion.split('.')[0];
   return majorVersion === loadedMajorVersion;
 }
 
-export function addError(state, errorToAdd) {
+export function addError(state:BattleType, errorToAdd: string) {
   const errorExists = state.errors.find((error) => error === errorToAdd);
 
   if (errorExists) {
@@ -43,7 +44,7 @@ export function addError(state, errorToAdd) {
   return state.errors.concat(errorToAdd);
 }
 
-function getLoadState(oldState, newState, ariaAnnouncement, error) {
+function getLoadState(oldState:BattleType, newState:BattleType, ariaAnnouncement:string, error:string) {
   const {
     battleId,
     battleCreated,
@@ -64,8 +65,8 @@ function getLoadState(oldState, newState, ariaAnnouncement, error) {
   };
 }
 
-export async function load(state, file) {
-  const fileContents = await FileSystem.load(file);
+export async function load(state:BattleType, file:Blob) {
+  const fileContents = await FileSystem.load(file) as string;
   const loadedState = jsonParse(fileContents);
 
   if (!loadedState) {
@@ -102,6 +103,7 @@ export async function load(state, file) {
     state,
     loadedState,
     'battle loaded',
+    ''
   );
 }
 
@@ -109,14 +111,14 @@ export function isSaveLoadSupported() {
   return FileSystem.isSaveSupported();
 }
 
-export function dismissErrors(state) {
+export function dismissErrors(state:BattleType) {
   return {
     ...state,
     errors: [],
   };
 }
 
-export function updateErrors(state, errorToAdd) {
+export function updateErrors(state:BattleType, errorToAdd:string) {
   const errors = addError(state, errorToAdd);
   return { ...state, errors };
 }
