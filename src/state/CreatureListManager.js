@@ -111,10 +111,9 @@ export function addCreature(state, creature) {
     creatureStats.apiData,
   );
 
-  const [
-    creatures,
-    activeCreature,
-  ] = sortByInitiative([...state.creatures, ...newCreatures], state.activeCreature, state.round);
+  const {
+    sortedCreatures: creatures, currentlyActiveCreature: activeCreature
+  } = sortByInitiative([...state.creatures, ...newCreatures], state.activeCreature, state.round);
 
   const creatureIdCount = state.creatureIdCount + creatureMultiplier;
 

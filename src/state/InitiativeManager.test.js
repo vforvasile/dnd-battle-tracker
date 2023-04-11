@@ -408,7 +408,9 @@ describe('sortByInitiative', () => {
       creatures[0],
     ];
 
-    expect(sortByInitiative(creatures, 1, 1)).toEqual([expectedCreatures, 0]);
+    const { sortedCreatures, currentlyActiveCreature } = sortByInitiative(creatures, 1, 1);
+
+    expect([sortedCreatures, currentlyActiveCreature]).toEqual([expectedCreatures, 0]);
   });
 
   it('does not change the active creature after sorting if combat as not started yet', () => {
@@ -433,7 +435,8 @@ describe('sortByInitiative', () => {
       creatures[0],
     ];
 
-    const result = sortByInitiative(expectedCreatures, undefined, 0);
-    expect(result).toEqual([expectedCreatures, undefined]);
+    const { sortedCreatures, currentlyActiveCreature } = sortByInitiative(expectedCreatures, undefined, 0);
+    
+    expect([sortedCreatures, currentlyActiveCreature]).toEqual([expectedCreatures, undefined]);
   });
 });
