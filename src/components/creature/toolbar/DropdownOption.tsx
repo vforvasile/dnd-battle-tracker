@@ -4,10 +4,10 @@ type Props = {
   className: string;
   onClick: () => void;
   selected: boolean;
-  id: string;
-  ariaLabel: string;
   text: string;
-  title: string;
+  id?: string;
+  ariaLabel?: string;
+  title?: string;
 };
 
 export default function DropdownOption({

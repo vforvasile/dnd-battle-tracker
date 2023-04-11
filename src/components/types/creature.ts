@@ -225,3 +225,10 @@ export type CreatureToAddType = CreatureType & {
   syncMultipleInitiatives?: boolean;
   number?: number;
 };
+
+
+export type InitialApiCreatureType = {
+  index: string;
+  name: string;
+  url: string;
+}

@@ -35,5 +35,5 @@ export type InputProps = {
   ariaControls?: string;
   ariaActiveDescendant?: string;
   customClasses?: string;
-  error?: boolean;
+  error?: boolean| string | React.ReactNode;
 };
