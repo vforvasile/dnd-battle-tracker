@@ -68,13 +68,13 @@ export interface SpecialAbility {
 }
 
 export type Spellcasting = {
+  slots: { [key: string]: number };
   level: number;
   ability: ProficiencyClass;
   dc: number;
   modifier: number;
   components_required: string[];
   school: string;
-  slots: { [key: string]: number };
   spells: SpellElement[];
 };
 
@@ -205,12 +205,14 @@ export type CreatureType = {
   name: string;
   id: number;
   alive: boolean;
-  conditions: ConditionDataType[];
   notes: NoteDataType[];
   locked: boolean;
   shared: boolean;
   hitPointsShared: boolean;
-  temporaryHealthPoints?: number;
+  conditions: ConditionDataType[];
+  healthPoints?: number;
+  maxHealthPoints?: number;
+  temporaryHealthPoints?: number | null;
   initiative?: number;
   // added on top of original data
   armorClass?: number;

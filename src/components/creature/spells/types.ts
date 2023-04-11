@@ -71,10 +71,10 @@ export type CreatureSpellType = {
 };
 
 export type SpellData = {
-  saveDC: number;
-  modifier: number;
-  level: number;
-  school: string;
-  ability: string;
   spells: CreatureSpellType[];
+  saveDC?: number;
+  modifier?: number;
+  level?: number;
+  school?: string;
+  ability?: string;
 };

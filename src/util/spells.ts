@@ -31,7 +31,7 @@ export const getCreatureSpellData = (spellcasting: Spellcasting) => {
     modifier: spellcasting.modifier,
     level: spellcasting.level,
     school: spellcasting.school,
-    ability: spellcasting.ability.name,
+    ability: spellcasting.ability?.name ?? '',
     spells: newSpells,
   };
 
