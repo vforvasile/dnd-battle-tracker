@@ -12,12 +12,12 @@ export type RightControlType = {
 };
 
 export type InputProps = {
-  label: string;
+  label: string |  React.ReactNode;
   value: string;
   inputId: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formHandler: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  submitHandler: (isLeftSubmit: boolean) => void;
+  submitHandler: (param: any) => void;
   name?: string;
   rightControls?: RightControlType;
   leftControls?: LeftControlType;

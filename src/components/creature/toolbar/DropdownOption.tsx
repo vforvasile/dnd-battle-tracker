@@ -1,4 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
+
+type Props = {
+  className: string;
+  onClick: () => void;
+  selected: boolean;
+  id: string;
+  ariaLabel: string;
+  text: string;
+  title: string;
+};
 
 export default function DropdownOption({
   className,
@@ -8,11 +18,12 @@ export default function DropdownOption({
   ariaLabel,
   text,
   title,
-}) {
-  const liRef = useRef(null);
+}: Props) {
+  const liRef = useRef<HTMLLIElement | null>(null);
 
   useEffect(() => {
-    if (selected) liRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (selected)
+      liRef?.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [selected]);
 
   return (
