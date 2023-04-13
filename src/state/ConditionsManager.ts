@@ -22,7 +22,7 @@ export function addCondition(
   conditionToAdd: ConditionType,
   creature: CreatureType,
   round: number,
-) {
+): ConditionDataType[] {
   const { conditions: existingConditions, id: creatureId } = creature;
   const conditionDataToAdd = conditionData[conditionToAdd];
 
@@ -31,14 +31,17 @@ export function addCondition(
   }
 
   const { text, url, id } = conditionDataToAdd;
+
+  const newText = text as ConditionType;
+
   const newConditionId = `${id}-${creatureId}`;
 
   if (conditionExists(newConditionId, existingConditions)) {
     return existingConditions;
   }
 
-  const newCondition = {
-    text,
+  const newCondition: ConditionDataType = {
+    text: newText,
     appliedAtRound: round,
     appliedAtSeconds: getSecondsElapsed(round),
     url,

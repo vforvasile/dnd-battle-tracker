@@ -12,12 +12,12 @@ export type RightControlType = {
 };
 
 export type InputProps = {
-  label: string;
+  label: string |  React.ReactNode;
   value: string;
   inputId: string;
-  submitHandler: (isLeftSubmit: boolean) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formHandler: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  submitHandler: (param: any) => void;
   name?: string;
   rightControls?: RightControlType;
   leftControls?: LeftControlType;
@@ -28,12 +28,12 @@ export type InputProps = {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   integer?: boolean;
   required?: boolean;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLInputElement> | null;
   ariaAutoComplete?: "none" | "inline" | "list" | "both" | undefined;
   ariaLabel?: string;
   ariaExpanded?: boolean;
   ariaControls?: string;
   ariaActiveDescendant?: string;
   customClasses?: string;
-  error?: boolean;
+  error?: boolean| string | React.ReactNode;
 };

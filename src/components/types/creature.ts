@@ -34,10 +34,10 @@ export interface Proficiency {
 
 export interface Senses {
   passive_perception: number;
-  blindsight: string
-  darkvision: string
-  tremorsense: string
-  truesight: string
+  blindsight: string;
+  darkvision: string;
+  tremorsense: string;
+  truesight: string;
 }
 
 export interface SpecialAbility {
@@ -68,13 +68,13 @@ export interface SpecialAbility {
 }
 
 export type Spellcasting = {
+  slots: { [key: string]: number };
   level: number;
   ability: ProficiencyClass;
   dc: number;
   modifier: number;
   components_required: string[];
   school: string;
-  slots: { [key: string]: number };
   spells: SpellElement[];
 };
 
@@ -107,7 +107,7 @@ export type LegendaryActionType = {
     choose: number;
     type: string;
     from: any;
-    };
+  };
   actions: [
     {
       action_name: string;
@@ -120,7 +120,7 @@ export type LegendaryActionType = {
     choose: number;
     type: string;
     from: any;
-    };
+  };
   multiattack_type: string;
   attack_bonus: number;
   dc: {
@@ -205,15 +205,30 @@ export type CreatureType = {
   name: string;
   id: number;
   alive: boolean;
-  conditions: ConditionDataType[];
   notes: NoteDataType[];
   locked: boolean;
   shared: boolean;
   hitPointsShared: boolean;
-  temporaryHealthPoints?: number;
+  conditions: ConditionDataType[];
+  healthPoints?: number;
+  maxHealthPoints?: number;
+  temporaryHealthPoints?: number | null;
   initiative?: number;
   // added on top of original data
   armorClass?: number;
   apiData?: ApiCreatureInfo;
   spellData?: SpellData;
+};
+
+export type CreatureToAddType = CreatureType & {
+  multiplier?: number;
+  syncMultipleInitiatives?: boolean;
+  number?: number;
+};
+
+
+export type InitialApiCreatureType = {
+  index: string;
+  name: string;
+  url: string;
 }

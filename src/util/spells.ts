@@ -1,8 +1,8 @@
-import { CreatureSpellType, SpellSlotType } from "../components/creature/spells/types";
+import { CreatureSpellType, SpellData, SpellSlotType } from "../components/creature/spells/types";
 import { Spellcasting } from "../components/types/creature";
 
 /* eslint-disable max-len */
-export const getCreatureSpellData = (spellcasting: Spellcasting) => {
+export const getCreatureSpellData = (spellcasting: Spellcasting):SpellData => {
 
   const apiSpells = spellcasting.spells ?? [];
 
@@ -31,7 +31,7 @@ export const getCreatureSpellData = (spellcasting: Spellcasting) => {
     modifier: spellcasting.modifier,
     level: spellcasting.level,
     school: spellcasting.school,
-    ability: spellcasting.ability.name,
+    ability: spellcasting.ability?.name ?? '',
     spells: newSpells,
   };
 

@@ -28,7 +28,7 @@ function CreatureNoteList({
   isConditionList,
 }: Props) {
   if (noteList.length === 0) {
-    return undefined;
+    return null;
   }
 
   const renderCondition = (condition: NoteOrCondition) => {
