@@ -105,6 +105,7 @@ function CreateCreatureForm({
     event.persist();
     setState((prevState) => {
       const newState = { ...prevState };
+      // @ts-ignore
       newState[event.target.name] = event.target.value;
       return newState;
     });
@@ -129,7 +130,7 @@ function CreateCreatureForm({
       armorClass,
       syncMultipleInitiatives: hasSameInitiative,
     };
-
+    // @ts-ignore NOTE: fix this
     propsCreateCreature(creature);
     setState((prevState) => ({ ...prevState, submitted: true }));
   };
@@ -168,6 +169,7 @@ function CreateCreatureForm({
           ? getCreatureSpellData(spellData.spellcasting)
           : undefined;
 
+        // @ts-ignore
         setState((prevState) => ({
           ...prevState,
           initiative:
